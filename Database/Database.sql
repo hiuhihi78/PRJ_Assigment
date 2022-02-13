@@ -11,18 +11,17 @@ CREATE TABLE [Customer](
 ) ON [PRIMARY]
 
 
-CREATE TABLE [Product](
+CREATE TABLE [dbo].[Product](
 	[id] [int] IDENTITY(1,1) NOT NULL,
 	[name] [nvarchar](50) NOT NULL,
 	[price] [float] NOT NULL,
-	[quantity] [int] NOT NULL,
+	[quantity] [float] NOT NULL,
 	[image] [nvarchar](400) NULL,
  CONSTRAINT [PK_Product] PRIMARY KEY CLUSTERED 
 (
 	[id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
-
 
 
 create table Orders(
@@ -35,7 +34,7 @@ amount float not null
 create table Order_Product(
 orderID int foreign key references Orders(orderID),
 productID int foreign key references Product(id),
-quantity int not null,
+quantity float not null,
 discount float not null,
 sellPrice float not null
 )
