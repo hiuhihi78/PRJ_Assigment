@@ -1,0 +1,23 @@
+login, logout, 
+
+register account
+
+home -> (for admin)
+view custormer view product, view order, view account
+- view customer (CRUD - create,read,update,delete)
+- view product (CRUD)
+- view orders (CRUD)
+- view account:
++ accept new account
++ update new account	
++ delete account
+
+
+home -> (for normal)
+view custormer view product, view order, view account
+- view customer (CRUD - create,read,update,delete)
+- view product (CRUD)
+- view orders (CRUD)
+- view account: update information of this account
+
+
