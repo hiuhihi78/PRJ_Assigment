@@ -11,7 +11,7 @@ view custormer view product, view order, view account
 + accept new account
 + update new account	
 + delete account
-
+- view recipt_account
 
 home -> (for normal)
 view custormer view product, view order, view account
@@ -19,5 +19,6 @@ view custormer view product, view order, view account
 - view product (CRUD)
 - view orders (CRUD)
 - view account: update information of this account
+- view recipt_account
 
 
