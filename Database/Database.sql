@@ -39,3 +39,11 @@ discount float not null,
 sellPrice float not null
 )
 
+
+create table Receipt_Product(
+ReceiptID int identity primary key,
+productID int foreign key references Product(id),
+date datetime not null,
+quantity float not null,
+price float not null
+)
