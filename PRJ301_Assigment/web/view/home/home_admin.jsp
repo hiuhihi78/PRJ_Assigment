@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -65,6 +67,12 @@
                 <div class="header col-md-12">
                     <img src="../../images/Banner01.jpg" alt=""/>
                 </div>
+            </div>
+            
+            
+            
+            <div class="row" style="margin-top: 300px;">
+
             </div>
             <div class="container-fluid">
                 <div class="row">
