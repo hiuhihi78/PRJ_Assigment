@@ -13,6 +13,7 @@
         <!--bosstrap-->
         <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="../../js/home.js" type="text/javascript"></script>
         <!--bosstrap-->
 
         <!--css-->
@@ -22,6 +23,8 @@
         <!--js-->
         <script src="../../js/home.js" type="text/javascript"></script>
         <!--js-->
+
+
         <title>JSP Page</title>
     </head>
     <body>
@@ -34,7 +37,7 @@
                     <a href="#">Tài khoản</a>
                     <a href="#">Đăng xuất</a>
                 </div>
-                <span id="open" style="font-size:30px;cursor:pointer;" onclick="openNav()">&#9776; Menu</span>
+                <span id="open" style="font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
             </div>
 
             <!--            <div id="logo">
@@ -48,11 +51,11 @@
         </div>
 
         <div class="container-fluid">
-            
+
             <div class="row wellcome text-center">
                 <h2>Xin chào, <br> Chúc bạn có một ngày tốt lành!</h2>
             </div>
-            
+
             <div class="row">
                 <div class="col-lg-4 navigation">
                     <button onclick="doNavigation('#');">Xuất hàng</button>
@@ -64,13 +67,13 @@
                     <button onclick="doNavigation('#');">Hóa Đơn</button>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="col-lg-4 navigation">
-                    <button onclick="doNavigation('#');">Sản Phẩm</button>
+                    <button onclick="window.location='../product/search.jsp'">Sản Phẩm</button>
                 </div>
                 <div class="col-lg-4 navigation">
-                    <button onclick="doNavigation('#');">Khách hàng</button>
+                    <button onclick="doNavigation('../product/search.jsp    ');">Khách hàng</button>
                 </div>
                 <div class="col-lg-4 navigation">
                     <button onclick="doNavigation('#');">Quản Lý tài khoản</button>
@@ -81,7 +84,7 @@
                 <div id="footer" class="text-center">
                     <p>Email : NhanhHauCuQua@gmail.com</p>
                     <p>Address: La Tinh - Đông La - Hoài Đức - Hà Nội</p>
-                    <h5>&copy; Copyright 2021. NhanhHauCuQua.com</h5>
+                    <h5>&copy; Copyright 2022. NhanhHauCuQua.com</h5>
                 </div>
             </div> 
         </div>
