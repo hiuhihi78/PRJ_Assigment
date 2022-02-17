@@ -70,10 +70,10 @@
 
             <div class="row">
                 <div class="col-lg-4 navigation">
-                    <button onclick="window.location='../product/search.jsp'">Sản Phẩm</button>
+                    <button onclick="window.location='../../product/search'">Sản Phẩm</button>
                 </div>
                 <div class="col-lg-4 navigation">
-                    <button onclick="doNavigation('../product/search.jsp    ');">Khách hàng</button>
+                    <button onclick="doNavigation('../../product/search.jsp');">Khách hàng</button>
                 </div>
                 <div class="col-lg-4 navigation">
                     <button onclick="doNavigation('#');">Quản Lý tài khoản</button>

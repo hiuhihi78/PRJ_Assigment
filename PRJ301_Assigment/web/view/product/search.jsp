@@ -4,6 +4,8 @@
     Author     : Admin
 --%>
 
+<%@page import="model.Product"%>
+<%@page import="java.util.ArrayList"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -11,6 +13,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+
+        <%
+            ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");
+            if (products == null) {
+                products = new ArrayList<Product>();
+            }
+        %>
     </head>
     <body>
         <form action="search" method="Get">
@@ -29,14 +38,20 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach items="${requestScope.products}" var =" product">
-                <td><c:out value="${product.id}"/></td>
-                <td><c:out value="${product.name}"/></td>
-                <td><c:out value="${product.price}"/></td>
-                <td><c:out value="${product.quantity}"/></td>
-                
-                </c:forEach>
+                <%for (Product p : products) {%>
+                <tr>
+                    <td><%= p.getId()%></td>
+                    <td><%= p.getName()%></td>
+                    <td><%= p.getPrice()%></td>
+                    <td><%= p.getQuantity()%></td>
+                    <td><%= p.getImage()%></td>
+                    <td><a href="update?id=<%= p.getId()%>">Update</a></td>
+                </tr>
+                <%}%>
             </tbody>
         </table>
+            
+        <button onclick="location.href = 'insert'">Insert new product</button>
+        
     </body>
 </html>

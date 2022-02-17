@@ -18,7 +18,7 @@ import model.Product;
  *
  * @author Admin
  */
-public class InsertProductServlet extends HttpServlet {
+public class UpdateProductServlet extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -31,7 +31,12 @@ public class InsertProductServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("../view/product/insert.jsp").forward(request, response);
+        int id = Integer.parseInt(request.getParameter("id"));
+
+        ProductDBContext productDB = new ProductDBContext();
+        Product product = productDB.getProductById(id);
+        request.setAttribute("product", product);
+        request.getRequestDispatcher("../view/product/update.jsp").forward(request, response);
     }
 
     /**
@@ -46,24 +51,20 @@ public class InsertProductServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ProductDBContext productDB = new ProductDBContext();
+        String raw_id = request.getParameter("id");
         String raw_name = request.getParameter("name");
         String raw_price = request.getParameter("price");
         String raw_Quantity = request.getParameter("quantity");
         String raw_image = request.getParameter("image");
         
-        //check product was existed
-        if(productDB.getProductByName(raw_name)!= null){
-            request.setAttribute("alter", "Product was existed!");
-            request.getRequestDispatcher("../view/product/insert.jsp").forward(request, response);
-            return;
-        }
         Product product = new Product();
+        product.setId(Integer.parseInt(raw_id));
         product.setName(raw_name);
         product.setPrice(Float.parseFloat(raw_price));
         product.setQuantity(Float.parseFloat(raw_Quantity));
         product.setImage(raw_image);
-
-        productDB.insertProduct(product);
+        
+        productDB.updateProduct(product);
         request.getRequestDispatcher("search").forward(request, response);
     }
 

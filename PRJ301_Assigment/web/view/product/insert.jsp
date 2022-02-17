@@ -17,8 +17,8 @@
             Price: <input type="number" min="0" name="price"/> <br>
             Quantity: <input type="number" min="0" name="quantity"/> <br>
             Image : <input type="text"  name="image" placeholder="Please!Fill the link image"/> <br>
-            <c:if test = "${requestScope.alter != ''}">
-                <p style="color: red"><c:out value = "${salary}"/><p>
+            <c:if test = "${requestScope.alter != null}">
+                <p style="color: red"><c:out value = "${alter}"/><p>
             </c:if>
             <input type="submit" value="Insert">
         </form>

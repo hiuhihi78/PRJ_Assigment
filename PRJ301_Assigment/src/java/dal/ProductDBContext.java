@@ -82,10 +82,9 @@ public class ProductDBContext extends DBContext {
                 + "      ,[image]\n"
                 + "  FROM Product\n"
                 + "  WHERE name = ?";
-        String name = "%" + pname + "%";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
-            ps.setString(1, name);
+            ps.setString(1, pname);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
                 Product p = new Product();
@@ -125,12 +124,63 @@ public class ProductDBContext extends DBContext {
         }
     }
 
+    public Product getProductById(int id) {
+        String sql = "SELECT [id]\n"
+                + "      ,[name]\n"
+                + "      ,[price]\n"
+                + "      ,[quantity]\n"
+                + "      ,[image]\n"
+                + "  FROM Product\n"
+                + "  WHERE id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Product p = new Product();
+                p.setId(rs.getInt(1));
+                p.setName(rs.getString(2));
+                p.setPrice(rs.getFloat(3));
+                p.setQuantity(rs.getFloat(4));
+                p.setImage(rs.getString(5));
+                return p;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public void updateProduct(Product product) {
+        String sql = "UPDATE [Product]\n"
+                + "   SET [name] = ?\n"
+                + "      ,[price] = ?\n"
+                + "      ,[quantity] = ?\n"
+                + "      ,[image] = ?\n"
+                + " WHERE [id] = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, product.getName());
+            ps.setFloat(2, product.getPrice());
+            ps.setFloat(3, product.getQuantity());
+            ps.setString(4, product.getImage());
+            ps.setInt(5, product.getId());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public static void main(String[] args) {
         ProductDBContext db = new ProductDBContext();
-        ArrayList<Product> products = db.getProductsByPartName("c");
-        for (Product p : products) {
-            System.out.println(p);
-        }
+//        ArrayList<Product> products = db.getProductsByPartName("c");
+//        for (Product p : products) {
+//            System.out.println(p);
+//        }
+//        Product product = db.getProductByName("Gung Tau");
+        Product product = db.getProductById(1);
+
+        System.out.println(product);
     }
 
 }
