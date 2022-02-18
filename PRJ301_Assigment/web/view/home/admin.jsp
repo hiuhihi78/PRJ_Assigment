@@ -1,4 +1,4 @@
-<%-- 
+    <%-- 
     Document   : admin
     Created on : Feb 15, 2022, 8:29:42 PM
     Author     : Admin
@@ -11,17 +11,17 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
         <!--bosstrap-->
-        <link href="../../css/bootstrap.css" rel="stylesheet" type="text/css"/>
-        <link href="../../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <script src="../../js/home.js" type="text/javascript"></script>
+        <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="js/home.js" type="text/javascript"></script>
         <!--bosstrap-->
 
         <!--css-->
-        <link href="../../css/stylehomeadmin.css" rel="stylesheet" type="text/css"/>
+        <link href="css/stylehomeadmin.css" rel="stylesheet" type="text/css"/>
         <!--css-->
 
         <!--js-->
-        <script src="../../js/home.js" type="text/javascript"></script>
+        <script src="js/home.js" type="text/javascript"></script>
         <!--js-->
 
 
@@ -47,13 +47,13 @@
         </div>
 
         <div class="container-fluid">
-            <img src="../../images/banner.png" class="img-responsive" alt=""/>
+            <img src="images/banner.png" class="img-responsive" alt=""/>
         </div>
 
         <div class="container-fluid">
 
             <div class="row wellcome text-center">
-                <h2>Xin chào, <br> Chúc bạn có một ngày tốt lành!</h2>
+                <h2>Xin chào, ${requestScope.displayname}<br> Chúc bạn có một ngày tốt lành!</h2>
             </div>
 
             <div class="row">
@@ -73,7 +73,7 @@
                     <button onclick="window.location='../../product/search'">Sản Phẩm</button>
                 </div>
                 <div class="col-lg-4 navigation">
-                    <button onclick="doNavigation('../../product/search.jsp');">Khách hàng</button>
+                    <button onclick="doNavigation('../product/search.jsp');">Khách hàng</button>
                 </div>
                 <div class="col-lg-4 navigation">
                     <button onclick="doNavigation('#');">Quản Lý tài khoản</button>

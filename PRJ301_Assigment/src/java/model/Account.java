@@ -12,8 +12,8 @@ package model;
 public class Account {
     private String username;
     private String password;
-    private boolean admin;
-
+    private String displayname;
+    
     public String getUsername() {
         return username;
     }
@@ -30,13 +30,14 @@ public class Account {
         this.password = password;
     }
 
-    public boolean isAdmin() {
-        return admin;
+    public String getDisplayname() {
+        return displayname;
     }
 
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
     }
+
     
     
 }
