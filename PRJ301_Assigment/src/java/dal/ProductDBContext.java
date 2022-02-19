@@ -171,6 +171,18 @@ public class ProductDBContext extends DBContext {
         }
     }
 
+    public void deleteProduct(int id) {
+        String query = "DELETE FROM [Product]\n"
+                + "WHERE id = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(query);
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public static void main(String[] args) {
         ProductDBContext db = new ProductDBContext();
 //        ArrayList<Product> products = db.getProductsByPartName("c");

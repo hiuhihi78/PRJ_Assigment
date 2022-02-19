@@ -20,6 +20,11 @@
                 products = new ArrayList<Product>();
             }
         %>
+        <script>
+            function doSubmit() {
+                document.getElementById("searchForm").submit();
+            }
+        </script>
     </head>
     <body>
         <form action="search" method="Get">
@@ -35,6 +40,7 @@
                     <th>Quantity</th>
                     <th>Image</th>
                     <th></th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -46,6 +52,7 @@
                     <td><%= p.getQuantity()%></td>
                     <td><%= p.getImage()%></td>
                     <td><a href="update?id=<%= p.getId()%>">Update</a></td>
+                    <td><a href="delete?id=<%= p.getId()%>">Delete</a></td>
                 </tr>
                 <%}%>
             </tbody>

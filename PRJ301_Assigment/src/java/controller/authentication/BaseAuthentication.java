@@ -23,10 +23,15 @@ public abstract class BaseAuthentication extends HttpServlet {
 
     private boolean isAuthenticated(HttpServletRequest request) {
         Account account = (Account) request.getSession().getAttribute("account");
-        AccountDBcontext accountDB = new AccountDBcontext();
-        String url = request.getServletPath();
-        int total = accountDB.getNumberOfRoles(account.getUsername(),url);
-        return total > 0;
+        if(account == null){
+            return false;
+        }else{
+            String url = request.getServletPath();
+            AccountDBcontext db = new AccountDBcontext();
+            int total = db.getNumberOfRoles(account.getUsername(), url);
+            return total > 0;
+        }
+
     }
 
     /**
@@ -40,7 +45,7 @@ public abstract class BaseAuthentication extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (isAuthenticated(request) == true) {
-            processGet(request,response);
+            processGet(request, response);
         } else {
             request.getRequestDispatcher("accessDenied").forward(request, response);
         }
@@ -56,7 +61,7 @@ public abstract class BaseAuthentication extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (isAuthenticated(request) == true) {
-            processPost(request,response);
+            processPost(request, response);
         } else {
             request.getRequestDispatcher("accessDenied").forward(request, response);
         }

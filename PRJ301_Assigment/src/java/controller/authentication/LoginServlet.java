@@ -54,13 +54,14 @@ public class LoginServlet extends HttpServlet {
         Account account = db.getAccount(username, password);
         
         if(account == null){
-//            request.setAttribute("message", "Wrong account or password!");
-//            request.getRequestDispatcher("loginfail").forward(request, response);
+            HttpSession session = request.getSession();
+            session.setAttribute("account", account);
+            request.setAttribute("message", "Wrong account or password!");
+            request.getRequestDispatcher("view/login.jsp").forward(request, response);
         }else{
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
-            request.setAttribute("displayname", account.getDisplayname());
-            request.getRequestDispatcher("home").forward(request, response);
+            response.sendRedirect("home");
         }
         
     }

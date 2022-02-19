@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.page;
+package controller.account;
 
 import controller.authentication.BaseAuthentication;
+import dal.AccountDBcontext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,26 +20,8 @@ import model.Account;
  *
  * @author Admin
  */
-public class HomeServlet extends HttpServlet {
+public class InsertAccountServlet extends BaseAuthentication {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Account account = (Account) session.getAttribute("account");
-        request.setAttribute("displayname", account.getDisplayname());
-        request.getRequestDispatcher("view/home.jsp").forward(request, response);
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -47,10 +30,10 @@ public class HomeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        request.getRequestDispatcher("../view/account/insert.jsp").forward(request, response);
     }
 
     /**
@@ -61,9 +44,29 @@ public class HomeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    @Override
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String displayname = request.getParameter("displayname");
+
+        AccountDBcontext db = new AccountDBcontext();
+        Account account_check = db.getAccountByUsername(username);
+
+        response.setContentType("text/html;charset=UTF-8");
+        PrintWriter out = response.getWriter();
+        if (account_check == null) {
+            Account account = new Account();
+            account.setUsername(username);
+            account.setPassword(password);
+            account.setDisplayname(displayname);
+            db.insertAccount(account);
+            out.println("Cảm ơn bạn! Đăng kí tài khoản thành công!");
+        } else {
+            request.setAttribute("alter", "Username was existed!");
+            request.getRequestDispatcher("../view/account/insert.jsp").forward(request, response);
+        }
     }
 
     /**

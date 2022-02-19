@@ -17,6 +17,14 @@
             table{
                 margin: 0 auto;
             }
+            #regiser{
+                position: relative;
+                left:40%;
+            }
+            #regiser a{
+                text-decoration: none;
+                color: black;
+            }
         </style>
     </head>
     <%
@@ -26,7 +34,7 @@
         }
     %>
     <body>
-        <h2>Login</h2>
+        <h2>Đăng nhập</h2>
         <form action="login" method="POST">
             <table>
                 <tr>
@@ -44,12 +52,13 @@
                 </tr>
                 <%}%>
                 <tr>
-                    <td></td>
-                    <td><input type="submit" value="Login"></td>
+                    <td><button id="regiser"><a href="account/insert">Đăng kí</a></button></td>
+                    <td>
+                        <input type="submit" value="Đăng nhập">
+                    </td>
                 </tr>
-
             </table>
         </form>
-                
+
     </body>
 </html>

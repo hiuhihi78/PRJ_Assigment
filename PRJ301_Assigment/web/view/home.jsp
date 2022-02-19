@@ -35,8 +35,7 @@
                 <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                     <a href="#">Tài khoản</a>
-                    <a href="logout">Đăng xuất</a>
-                    <button onclick="window.location='product/search'">Sản Phẩm</button>
+                    <a href="../../logout">Đăng xuất</a>
                 </div>
                 <span id="open" style="font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
             </div>
@@ -73,10 +72,10 @@
                     <button onclick="window.location='product/search'">Sản Phẩm</button>
                 </div>
                 <div class="col-lg-4 navigation">
-                    <button onclick="doNavigation('../product/search.jsp');">Khách hàng</button>
+                    <button onclick="doNavigation('#');">Khách hàng</button>
                 </div>
                 <div class="col-lg-4 navigation">
-                    <button onclick="doNavigation('#');">Quản Lý tài khoản</button>
+                    <button onclick="window.location='account/search'">Quản Lý tài khoản</button>
                 </div>
             </div>
 
