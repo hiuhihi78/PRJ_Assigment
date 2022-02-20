@@ -5,6 +5,8 @@
  */
 package model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Admin
@@ -13,6 +15,15 @@ public class Account {
     private String username;
     private String password;
     private String displayname;
+    private ArrayList<Account_Group> groups = new ArrayList<>();
+
+    public ArrayList<Account_Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(ArrayList<Account_Group> groups) {
+        this.groups = groups;
+    }
     
     public String getUsername() {
         return username;

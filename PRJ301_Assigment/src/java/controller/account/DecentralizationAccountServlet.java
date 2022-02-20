@@ -5,21 +5,26 @@
  */
 package controller.account;
 
+import controller.authentication.BaseAuthentication;
 import dal.AccountDBcontext;
+import dal.GroupDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.Account;
+import model.Group;
 
 /**
  *
  * @author Admin
  */
-public class InsertAccountServlet extends HttpServlet {
+public class DecentralizationAccountServlet extends BaseAuthentication {
 
+    
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -29,9 +34,17 @@ public class InsertAccountServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("../view/account/insert.jsp").forward(request, response);
+        String username = request.getParameter("username");
+        AccountDBcontext accountDB = new AccountDBcontext();
+        Account account = accountDB.getAccountByUsername(username);
+        request.setAttribute("displayname", account.getDisplayname());
+        
+        GroupDBContext groupDB = new GroupDBContext();
+        ArrayList<Group> groups = groupDB.getGroups();
+        request.setAttribute("groups", groups);
+        request.getRequestDispatcher("../view/account/decentralization.jsp").forward(request, response);
     }
 
     /**
@@ -43,24 +56,9 @@ public class InsertAccountServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        String displayname = request.getParameter("displayname");
-        AccountDBcontext db = new AccountDBcontext();
-        boolean accountExisted = db.getAccountByPartUsername(username)== null;
-        if(accountExisted == false){
-            Account account = new Account();
-            account.setUsername(username);
-            account.setPassword(password);
-            account.setDisplayname(displayname);
-            db.insertAccount(account);
-            response.sendRedirect("../login");
-        }else{
-            request.setAttribute("alter", "Username was existed!");
-            request.getRequestDispatcher("../view/account/insert.jsp").forward(request, response);
-        }
+        
     }
 
     /**

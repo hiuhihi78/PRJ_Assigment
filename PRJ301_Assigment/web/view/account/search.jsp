@@ -41,12 +41,13 @@
                     <td><%= a.getUsername()%></td>
                     <td><%= a.getPassword()%></td>
                     <td><%= a.getDisplayname()%></td>
+                    <td><a href="decentralization?username=<%= a.getUsername()%>">Phan quyen</a></td>
                     <td><a href="delete?id=<%= a.getUsername()%>">Delete</a></td>
                 </tr>
                 <%}%>
             </tbody>
         </table>
-        <button onclick="location.href = 'insert'">Insert new Account</button>
+        <a href="insert">Insert</a>
 
     </body>
 </html>

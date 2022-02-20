@@ -33,16 +33,20 @@
         <servlet-class>controller.authentication.LogoutServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>InsertAccountServlet</servlet-name>
-        <servlet-class>controller.account.InsertAccountServlet</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SearchAccountServlet</servlet-name>
         <servlet-class>controller.account.SearchAccountServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>DeleteAccountServlet</servlet-name>
         <servlet-class>controller.account.DeleteAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>InsertAccountServlet</servlet-name>
+        <servlet-class>controller.account.InsertAccountServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DecentralizationAccountServlet</servlet-name>
+        <servlet-class>controller.account.DecentralizationAccountServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>SearchProductServlet</servlet-name>
@@ -77,16 +81,20 @@
         <url-pattern>/logout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>InsertAccountServlet</servlet-name>
-        <url-pattern>/account/insert</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>SearchAccountServlet</servlet-name>
         <url-pattern>/account/search</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>DeleteAccountServlet</servlet-name>
         <url-pattern>/account/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>InsertAccountServlet</servlet-name>
+        <url-pattern>/account/insert</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DecentralizationAccountServlet</servlet-name>
+        <url-pattern>/account/decentralization</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

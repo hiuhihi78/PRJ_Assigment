@@ -47,7 +47,7 @@ public abstract class BaseAuthentication extends HttpServlet {
         if (isAuthenticated(request) == true) {
             processGet(request, response);
         } else {
-            request.getRequestDispatcher("accessDenied").forward(request, response);
+            request.getRequestDispatcher("../accessDenied").forward(request, response);
         }
     }
 

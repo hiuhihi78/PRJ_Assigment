@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
         if(account == null){
             HttpSession session = request.getSession();
             session.setAttribute("account", account);
-            request.setAttribute("message", "Wrong account or password!");
+            request.setAttribute("message", "Wrong username or password!");
             request.getRequestDispatcher("view/login.jsp").forward(request, response);
         }else{
             HttpSession session = request.getSession();

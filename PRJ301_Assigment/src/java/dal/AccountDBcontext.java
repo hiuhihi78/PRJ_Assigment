@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Account;
+import model.Account_Group;
+import model.Group;
 
 /**
  *
@@ -65,6 +67,13 @@ public class AccountDBcontext extends DBContext {
     }
 
     public Account getAccountByUsername(String username) {
+
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         try {
             String sql = "SELECT [username]\n"
                     + "      ,[password]\n"
@@ -74,15 +83,47 @@ public class AccountDBcontext extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, username);
             ResultSet rs = ps.executeQuery();
+            Account account = new Account();
             if (rs.next() == true) {
-                Account account = new Account();
                 account.setUsername(username);
                 account.setPassword(rs.getString(2));
                 account.setDisplayname(rs.getString(3));
-                return account;
             }
+            
+            ArrayList<Account_Group> account_Groups = new ArrayList<>();
+            String sql_getAccGroup = "SELECT [username]\n"
+                    + "      ,[gid]\n"
+                    + "  FROM [Account_Group]\n"
+                    + "  WHERE username = ?";
+            PreparedStatement ps_getAccGroup = connection.prepareStatement(sql_getAccGroup);
+            ps_getAccGroup.setString(1, username);
+            ResultSet rs_getAccGroup = ps.executeQuery();
+            while(rs_getAccGroup.next()){
+                Account_Group ag = new Account_Group();
+                Account a = new Account();
+                a.setUsername(rs_getAccGroup.getString(1));
+                Group g = new Group();
+                g.setId(rs_getAccGroup.getInt(2));
+                ag.setAccount(a);
+                ag.setGroup(g);
+                account_Groups.add(ag);
+            }
+            account.setGroups(account_Groups);
+            
+            return account;
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         return null;
     }
@@ -135,22 +176,31 @@ public class AccountDBcontext extends DBContext {
     public void deleteAccount(String username) {
         try {
             connection.setAutoCommit(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+
             String query_deleteAccount_Group = "DELETE FROM [Account_Group]\n"
-                                                + "      WHERE username = ?";
+                    + "      WHERE username = ?";
             PreparedStatement ps_deleteAccount_Group = connection.prepareStatement(query_deleteAccount_Group);
             ps_deleteAccount_Group.setString(1, username);
             ps_deleteAccount_Group.executeUpdate();
 
             String query_deleteAccount = "DELETE FROM [Account]\n"
-                                 + "      WHERE username = ?";
+                    + "      WHERE username = ?";
             PreparedStatement ps_deleteAccount = connection.prepareStatement(query_deleteAccount);
-            ps_deleteAccount.setString(1, query_deleteAccount);
+            ps_deleteAccount.setString(1, username);
             ps_deleteAccount.executeUpdate();
-            
+
             connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
-            connection.rollback();
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
         } finally {
             try {
                 connection.setAutoCommit(true);
@@ -163,7 +213,7 @@ public class AccountDBcontext extends DBContext {
 
     public static void main(String[] args) {
         AccountDBcontext db = new AccountDBcontext();
-        ArrayList<Account> accounts = db.getAccountByPartUsername("");
+        ArrayList<Account> accounts = db.getAccountByPartUsername("admin");
         for (Account a : accounts) {
             System.out.println(a);
         }
