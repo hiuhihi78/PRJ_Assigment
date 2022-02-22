@@ -50,7 +50,7 @@ public class InsertAccountServlet extends HttpServlet {
         String displayname = request.getParameter("displayname");
         AccountDBcontext db = new AccountDBcontext();
         boolean accountExisted = db.getAccountByPartUsername(username)== null;
-        if(accountExisted == false){
+        if(accountExisted == true){
             Account account = new Account();
             account.setUsername(username);
             account.setPassword(password);

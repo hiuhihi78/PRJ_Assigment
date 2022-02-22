@@ -3,7 +3,7 @@
     Created on : Jan 14, 2022, 11:02:23 AM
     Author     : Admin
 --%>
-
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,30 +27,25 @@
             }
         </style>
     </head>
-    <%
-        String message = (String) request.getAttribute("message");
-        if (message == null) {
-            message = "";
-        }
-    %>
+    
     <body>
         <h2>Đăng nhập</h2>
         <form action="login" method="POST">
             <table>
                 <tr>
                     <td>User name: </td>
-                    <td><input type="text" name="username"></td>
+                    <td><input type="text" name="username" value="${param.username}"></td>
                 </tr>
                 <tr>
                     <td>Password: </td>
-                    <td><input type="password" name="password"></td>
+                    <td><input type="password" name="password" value="${param.password}"></td>
                 </tr>
-                <% if (!message.isEmpty()) {%>
-                <tr>
-                    <td></td>
-                    <td><i style="color: red"><%= message%></i></td>
-                </tr>
-                <%}%>
+                <c:if test="${requestScope.message!=null}">
+                    <tr>
+                        <td></td>
+                        <td><i style="color: red">${requestScope.message}</td>
+                    </tr>
+                </c:if>
                 <tr>
                     <td><button id="regiser"><a href="account/insert">Đăng kí</a></button></td>
                     <td>

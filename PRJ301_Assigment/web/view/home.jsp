@@ -35,7 +35,7 @@
                 <div id="mySidenav" class="sidenav">
                     <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
                     <a href="#">Tài khoản</a>
-                    <a href="../../logout">Đăng xuất</a>
+                    <a href="logout">Đăng xuất</a>
                 </div>
                 <span id="open" style="font-size:30px;cursor:pointer;" onclick="openNav()">&#9776;</span>
             </div>

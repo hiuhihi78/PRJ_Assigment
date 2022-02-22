@@ -39,7 +39,7 @@ public class DecentralizationAccountServlet extends BaseAuthentication {
         String username = request.getParameter("username");
         AccountDBcontext accountDB = new AccountDBcontext();
         Account account = accountDB.getAccountByUsername(username);
-        request.setAttribute("displayname", account.getDisplayname());
+        request.setAttribute("account", account);
         
         GroupDBContext groupDB = new GroupDBContext();
         ArrayList<Group> groups = groupDB.getGroups();
@@ -58,7 +58,12 @@ public class DecentralizationAccountServlet extends BaseAuthentication {
     @Override
     protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String[] groupIDs = request.getParameterValues("gid");
         
+        AccountDBcontext accountDB = new AccountDBcontext();
+        accountDB.updateAccount_Group(username, groupIDs);
+        response.sendRedirect("search");
     }
 
     /**

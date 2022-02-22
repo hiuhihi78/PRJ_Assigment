@@ -14,12 +14,19 @@
     </head>
     <body>
         <h2>Phân quyền truy cập</h2>
-        <!--<p>Tên người dùng: ${requestScope.displayname}</p>-->
+        <p>Tên người dùng: ${requestScope.account.displayname}</p>
         <form action="decentralization" method="POST">
+            <input type="hidden" name="username" value="${requestScope.account.username}">
             <c:forEach items="${requestScope.groups}" var="g">
-                <input type="checkbox" name="groupID" value="${g.id}"> ${g.name} <br>
+                <c:forEach items="${requestScope.account.groups}" var="ag">
+                    <input type="checkbox"
+                           <c:if test = "${g.id == ag.group.id}">
+                               <%= "checked='checked'"%>
+                           </c:if>
+                           name="gid" value="${g.id}"> ${g.name} <br>
+                </c:forEach>
             </c:forEach>
-                <input type="submit" value="Save">
+            <input type="submit" value="Save">
         </form>
     </body>
 </html>

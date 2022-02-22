@@ -89,7 +89,7 @@ public class AccountDBcontext extends DBContext {
                 account.setPassword(rs.getString(2));
                 account.setDisplayname(rs.getString(3));
             }
-            
+
             ArrayList<Account_Group> account_Groups = new ArrayList<>();
             String sql_getAccGroup = "SELECT [username]\n"
                     + "      ,[gid]\n"
@@ -97,19 +97,19 @@ public class AccountDBcontext extends DBContext {
                     + "  WHERE username = ?";
             PreparedStatement ps_getAccGroup = connection.prepareStatement(sql_getAccGroup);
             ps_getAccGroup.setString(1, username);
-            ResultSet rs_getAccGroup = ps.executeQuery();
-            while(rs_getAccGroup.next()){
+            ResultSet rs_getAccGroup = ps_getAccGroup.executeQuery();
+            while (rs_getAccGroup.next()) {
                 Account_Group ag = new Account_Group();
                 Account a = new Account();
-                a.setUsername(rs_getAccGroup.getString(1));
+                a.setUsername(rs_getAccGroup.getString("username"));
                 Group g = new Group();
-                g.setId(rs_getAccGroup.getInt(2));
+                g.setId(rs_getAccGroup.getInt("gid"));
                 ag.setAccount(a);
                 ag.setGroup(g);
                 account_Groups.add(ag);
             }
             account.setGroups(account_Groups);
-            
+
             return account;
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
@@ -211,12 +211,60 @@ public class AccountDBcontext extends DBContext {
 
     }
 
+    public void updateAccount_Group(String username, String[] groupIDs) {
+
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            String sql_deleteAcc_Group = "DELETE FROM [Account_Group]\n"
+                    + "      WHERE username = ?";
+            PreparedStatement ps_deleteAcc_Group = connection.prepareStatement(sql_deleteAcc_Group);
+            ps_deleteAcc_Group.setString(1, username);
+            ps_deleteAcc_Group.executeUpdate();
+            
+            int count = 0;
+            String sql_add_Acc_Group = "INSERT INTO [Account_Group]\n"
+                    + "           ([username]\n"
+                    + "           ,[gid])\n"
+                    + "     VALUES\n";
+            for(String raw_gid : groupIDs){
+                sql_add_Acc_Group += "(?,?),\n";
+                count = count + 1;
+            }
+            PreparedStatement ps_add_Acc_Group = connection.prepareStatement(sql_add_Acc_Group);
+            while(count == 0){
+                ps_add_Acc_Group.setString(count, username);
+                ps_add_Acc_Group.setInt(count, Integer.parseInt(groupIDs[count]));
+                count = count - 1;
+            }
+            ps_add_Acc_Group.executeUpdate();
+          
+            
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         AccountDBcontext db = new AccountDBcontext();
-        ArrayList<Account> accounts = db.getAccountByPartUsername("admin");
-        for (Account a : accounts) {
-            System.out.println(a);
-        }
+        Account account = db.getAccountByUsername("admin");
+        System.out.println(account);
     }
 
 }

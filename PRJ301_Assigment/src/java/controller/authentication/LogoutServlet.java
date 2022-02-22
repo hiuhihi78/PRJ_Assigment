@@ -33,7 +33,7 @@ public class LogoutServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Account account = new Account();
-        session.setAttribute("account", account);
+        session.setAttribute("account", null);
         response.sendRedirect("login");
     }
 

@@ -19,7 +19,7 @@ import model.Account;
  *
  * @author Admin
  */
-public class HomeServlet extends HttpServlet {
+public class HomeServlet extends BaseAuthentication {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,6 +34,10 @@ public class HomeServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Account account = (Account) session.getAttribute("account");
+        if(account == null){
+            request.getRequestDispatcher("accessDenied").forward(request, response);
+            return;
+        }
         request.setAttribute("displayname", account.getDisplayname());
         request.getRequestDispatcher("view/home.jsp").forward(request, response);
     }
@@ -48,7 +52,7 @@ public class HomeServlet extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
@@ -61,7 +65,7 @@ public class HomeServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }

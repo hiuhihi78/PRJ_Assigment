@@ -47,7 +47,16 @@ public abstract class BaseAuthentication extends HttpServlet {
         if (isAuthenticated(request) == true) {
             processGet(request, response);
         } else {
-            request.getRequestDispatcher("../accessDenied").forward(request, response);
+            String url = request.getRequestURI().substring(request.getContextPath().length());
+            String accessDenied = "accessDenied";
+            if(url == null){
+                response.sendRedirect("login");
+            }
+            String[] split_url = url.split("/");
+            for(int i = 2; i < split_url.length ; i++){
+                accessDenied = "../" + accessDenied;
+            }
+            response.sendRedirect(accessDenied);
         }
     }
 
@@ -63,7 +72,16 @@ public abstract class BaseAuthentication extends HttpServlet {
         if (isAuthenticated(request) == true) {
             processPost(request, response);
         } else {
-            request.getRequestDispatcher("accessDenied").forward(request, response);
+             String url = request.getRequestURI().substring(request.getContextPath().length());
+            String accessDenied = "accessDenied";
+            if(url == null){
+                response.sendRedirect("login");
+            }
+            String[] split_url = url.split("/");
+            for(int i = 2; i < split_url.length ; i++){
+                accessDenied = "../" + accessDenied;
+            }
+            response.sendRedirect(accessDenied);
         }
     }
 
