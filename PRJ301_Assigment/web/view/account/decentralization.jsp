@@ -18,13 +18,13 @@
         <form action="decentralization" method="POST">
             <input type="hidden" name="username" value="${requestScope.account.username}">
             <c:forEach items="${requestScope.groups}" var="g">
-                <c:forEach items="${requestScope.account.groups}" var="ag">
-                    <input type="checkbox"
+                <input type="checkbox"
+                       <c:forEach items="${requestScope.account.groups}" var="ag">
                            <c:if test = "${g.id == ag.group.id}">
                                <%= "checked='checked'"%>
                            </c:if>
-                           name="gid" value="${g.id}"> ${g.name} <br>
-                </c:forEach>
+                       </c:forEach>
+                       name="gid" value="${g.id}"> ${g.name} <br>
             </c:forEach>
             <input type="submit" value="Save">
         </form>

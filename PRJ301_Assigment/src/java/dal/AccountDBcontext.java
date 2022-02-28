@@ -225,25 +225,44 @@ public class AccountDBcontext extends DBContext {
             PreparedStatement ps_deleteAcc_Group = connection.prepareStatement(sql_deleteAcc_Group);
             ps_deleteAcc_Group.setString(1, username);
             ps_deleteAcc_Group.executeUpdate();
-            
+
+            if (groupIDs.length == 0) {
+                connection.commit();
+                return;
+            }
+
             int count = 0;
             String sql_add_Acc_Group = "INSERT INTO [Account_Group]\n"
                     + "           ([username]\n"
                     + "           ,[gid])\n"
                     + "     VALUES\n";
-            for(String raw_gid : groupIDs){
-                sql_add_Acc_Group += "(?,?),\n";
-                count = count + 1;
+
+            if (groupIDs.length == 1) {
+                sql_add_Acc_Group = sql_add_Acc_Group + "(?,?)";
+                count = count + 2;
+            } else {
+                for (int i = 0; i < groupIDs.length - 2; i++) {
+                    sql_add_Acc_Group = sql_add_Acc_Group + "(?,?),";
+                    count = count + 2;
+                }
+                sql_add_Acc_Group = sql_add_Acc_Group + "(?,?)";
+                count = count + 2;
             }
+
             PreparedStatement ps_add_Acc_Group = connection.prepareStatement(sql_add_Acc_Group);
-            while(count == 0){
-                ps_add_Acc_Group.setString(count, username);
-                ps_add_Acc_Group.setInt(count, Integer.parseInt(groupIDs[count]));
+
+            count = count + 1;
+            for (int i = 0; i < groupIDs.length - 1; i++) {
                 count = count - 1;
+                ps_add_Acc_Group.setInt(count, Integer.parseInt(groupIDs[i]));
+
+                count = count - 1;
+                ps_add_Acc_Group.setString(count, username);
+
             }
+
             ps_add_Acc_Group.executeUpdate();
-          
-            
+
             connection.commit();
         } catch (SQLException ex) {
             Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
@@ -263,8 +282,10 @@ public class AccountDBcontext extends DBContext {
 
     public static void main(String[] args) {
         AccountDBcontext db = new AccountDBcontext();
-        Account account = db.getAccountByUsername("admin");
-        System.out.println(account);
+        String[] s = new String[2];
+        s[0] = "1";
+        s[1] = "2";
+        db.updateAccount_Group("test2", s);
     }
 
 }

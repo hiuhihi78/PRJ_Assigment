@@ -24,6 +24,13 @@
             function doSubmit() {
                 document.getElementById("searchForm").submit();
             }
+
+            function doDelete(id) {
+                var comfirm = window.confirm("Are you sure?");
+                if (comfirm == true) {
+                    window.location.href = "delete?id=" + id;
+                }
+            }
         </script>
     </head>
     <body>
@@ -44,21 +51,20 @@
                 </tr>
             </thead>
             <tbody>
-                <%for (Product p : products) {%>
-                <tr>
-                    <td><%= p.getId()%></td>
-                    <td><%= p.getName()%></td>
-                    <td><%= p.getPrice()%></td>
-                    <td><%= p.getQuantity()%></td>
-                    <td><%= p.getImage()%></td>
-                    <td><a href="update?id=<%= p.getId()%>">Update</a></td>
-                    <td><a href="delete?id=<%= p.getId()%>">Delete</a></td>
-                </tr>
-                <%}%>
-            </tbody>
-        </table>
-            
-        <button onclick="location.href = 'insert'">Insert new product</button>
-        
-    </body>
+
+                <c:forEach items="${requestScope.products}" var="p">
+                <td>${p.id}</td>
+                <td>${p.name}</td>
+                <td>${p.price}</td>
+                <td>${p.quantity}</td>
+                <td>${p.image}</td>
+                <td><a href="update?id=${p.id}">Update</a></td>
+                <td><a href="#" onclick="doDelete(${p.id});">Delete</a></td>
+            </c:forEach>
+        </tbody>
+    </table>
+
+    <button onclick="location.href = 'insert'">Insert new product</button>
+
+</body>
 </html>

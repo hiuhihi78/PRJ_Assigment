@@ -60,7 +60,9 @@ public class DecentralizationAccountServlet extends BaseAuthentication {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String[] groupIDs = request.getParameterValues("gid");
-        
+        if(groupIDs == null){
+            groupIDs = new String[0];
+        }
         AccountDBcontext accountDB = new AccountDBcontext();
         accountDB.updateAccount_Group(username, groupIDs);
         response.sendRedirect("search");

@@ -65,7 +65,7 @@ public class InsertProductServlet extends BaseAuthentication {
         product.setImage(raw_image);
 
         productDB.insertProduct(product);
-        request.getRequestDispatcher("search").forward(request, response);
+        response.sendRedirect("search");
     }
 
     /**
