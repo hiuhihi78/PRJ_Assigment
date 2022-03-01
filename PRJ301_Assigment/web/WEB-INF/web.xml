@@ -48,6 +48,26 @@
         <servlet-name>DecentralizationAccountServlet</servlet-name>
         <servlet-class>controller.account.DecentralizationAccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ExportServlet</servlet-name>
+        <servlet-class>controller.export.ExportServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExportNewCustomer</servlet-name>
+        <servlet-class>controller.export.ExportNewCustomer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ExportChoseProduct</servlet-name>
+        <servlet-class>controller.export.ExportListProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddProductToCartServlet</servlet-name>
+        <servlet-class>controller.export.AddProductToCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckOutOrder</servlet-name>
+        <servlet-class>controller.export.CheckOutOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SearchProductServlet</servlet-name>
         <url-pattern>/product/search</url-pattern>
@@ -95,6 +115,26 @@
     <servlet-mapping>
         <servlet-name>DecentralizationAccountServlet</servlet-name>
         <url-pattern>/account/decentralization</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExportServlet</servlet-name>
+        <url-pattern>/export</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExportNewCustomer</servlet-name>
+        <url-pattern>/export/newCustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ExportChoseProduct</servlet-name>
+        <url-pattern>/export/listProduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddProductToCartServlet</servlet-name>
+        <url-pattern>/cart/add</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckOutOrder</servlet-name>
+        <url-pattern>/cart/checkout</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

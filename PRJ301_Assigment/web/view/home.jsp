@@ -1,7 +1,7 @@
-    <%-- 
-    Document   : admin
-    Created on : Feb 15, 2022, 8:29:42 PM
-    Author     : Admin
+<%-- 
+Document   : admin
+Created on : Feb 15, 2022, 8:29:42 PM
+Author     : Admin
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -57,7 +57,7 @@
 
             <div class="row">
                 <div class="col-lg-4 navigation">
-                    <button onclick="doNavigation('#');">Xuất hàng</button>
+                    <button onclick="doNavigation('export');">Xuất hàng</button>
                 </div>
                 <div class="col-lg-4 navigation">
                     <button onclick="doNavigation('#');">Nhập hàng</button>
@@ -69,13 +69,23 @@
 
             <div class="row">
                 <div class="col-lg-4 navigation">
-                    <button onclick="window.location='product/search'">Sản Phẩm</button>
+                    <button onclick="window.location = 'product/search'">Sản Phẩm</button>
                 </div>
                 <div class="col-lg-4 navigation">
                     <button onclick="doNavigation('#');">Khách hàng</button>
                 </div>
                 <div class="col-lg-4 navigation">
-                    <button onclick="window.location='account/search'">Quản Lý tài khoản</button>
+                    <button onclick="doNavigation('#');">Nhà cung cấp</button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-4 navigation">
+                </div>
+                <div class="col-lg-4 navigation">
+                    <button onclick="window.location = 'account/search'">Quản lý tài khoản</button>
+                </div>
+                <div class="col-lg-4 navigation">
                 </div>
             </div>
 

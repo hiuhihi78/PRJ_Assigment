@@ -17,7 +17,25 @@ public class Orders {
     private Customer customer;
     private Date date;
     private ArrayList<Order_Product> order_Products = new ArrayList<>();
+    private float paid;
     private float amount;
+    private Account seller;
+
+    public float getPaid() {
+        return paid;
+    }
+
+    public void setPaid(float paid) {
+        this.paid = paid;
+    }
+
+    public Account getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Account seller) {
+        this.seller = seller;
+    }
 
     public int getId() {
         return id;

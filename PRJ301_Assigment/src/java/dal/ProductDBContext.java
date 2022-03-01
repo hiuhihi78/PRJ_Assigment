@@ -185,14 +185,9 @@ public class ProductDBContext extends DBContext {
 
     public static void main(String[] args) {
         ProductDBContext db = new ProductDBContext();
-//        ArrayList<Product> products = db.getProductsByPartName("c");
-//        for (Product p : products) {
-//            System.out.println(p);
-//        }
-//        Product product = db.getProductByName("Gung Tau");
-        Product product = db.getProductById(1);
-
-        System.out.println(product);
+        for(Product p : db.getProducts()){
+            System.out.println(p);
+        }
     }
 
 }

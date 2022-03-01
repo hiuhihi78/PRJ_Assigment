@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.product;
+package controller.export;
 
-import controller.authentication.BaseAuthentication;
 import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,8 @@ import model.Product;
  *
  * @author Admin
  */
-public class InsertProductServlet extends BaseAuthentication {
+public class ExportListProduct extends HttpServlet {
+
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -30,9 +31,12 @@ public class InsertProductServlet extends BaseAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("../view/product/insert.jsp").forward(request, response);
+        ProductDBContext productDB = new ProductDBContext();
+        ArrayList<Product> products = productDB.getProducts();
+        request.setAttribute("products", products);
+        request.getRequestDispatcher("../view/export/listProduct.jsp").forward(request, response);
     }
 
     /**
@@ -44,28 +48,9 @@ public class InsertProductServlet extends BaseAuthentication {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void processPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        ProductDBContext productDB = new ProductDBContext();
-        String raw_name = request.getParameter("name");
-        String raw_price = request.getParameter("price");
-        String raw_Quantity = request.getParameter("quantity");
-        String raw_image = request.getParameter("image");
-//        File request.getParameter("image");
-        //check product was existed
-        if(productDB.getProductByName(raw_name)!= null){
-            request.setAttribute("alter", "Product was existed!");
-            request.getRequestDispatcher("../view/product/insert.jsp").forward(request, response);
-            return;
-        }
-        Product product = new Product();
-        product.setName(raw_name);
-        product.setPrice(Float.parseFloat(raw_price));
-        product.setQuantity(Float.parseFloat(raw_Quantity));
-        product.setImage(raw_image);
-
-        productDB.insertProduct(product);
-        response.sendRedirect("search");
+        
     }
 
     /**

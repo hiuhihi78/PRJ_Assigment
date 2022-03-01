@@ -17,15 +17,6 @@ public class Product {
     private float price;
     private float quantity;
     private String image;
-    private ArrayList<ReceiptProduct> receiptProducts = new ArrayList<>();
-
-    public ArrayList<ReceiptProduct> getReceiptProducts() {
-        return receiptProducts;
-    }
- 
-    public void setReceiptProducts(ArrayList<ReceiptProduct> receiptProducts) {
-        this.receiptProducts = receiptProducts;
-    }
     
     public int getId() {
         return id;

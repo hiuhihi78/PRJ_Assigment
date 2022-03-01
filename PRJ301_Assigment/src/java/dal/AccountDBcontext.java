@@ -231,37 +231,17 @@ public class AccountDBcontext extends DBContext {
                 return;
             }
 
-            int count = 0;
-            String sql_add_Acc_Group = "INSERT INTO [Account_Group]\n"
-                    + "           ([username]\n"
-                    + "           ,[gid])\n"
-                    + "     VALUES\n";
-
-            if (groupIDs.length == 1) {
-                sql_add_Acc_Group = sql_add_Acc_Group + "(?,?)";
-                count = count + 2;
-            } else {
-                for (int i = 0; i < groupIDs.length - 2; i++) {
-                    sql_add_Acc_Group = sql_add_Acc_Group + "(?,?),";
-                    count = count + 2;
-                }
-                sql_add_Acc_Group = sql_add_Acc_Group + "(?,?)";
-                count = count + 2;
+            for (String gid : groupIDs) {
+                String sql_add_Acc_Group = "INSERT INTO [Account_Group]\n"
+                        + "           ([username]\n"
+                        + "           ,[gid])\n"
+                        + "     VALUES\n"
+                        + "     (?,?)";
+                PreparedStatement ps_add_Acc_Group = connection.prepareStatement(sql_add_Acc_Group);
+                ps_add_Acc_Group.setString(1, username);
+                ps_add_Acc_Group.setString(2, gid);
+                ps_add_Acc_Group.executeUpdate();
             }
-
-            PreparedStatement ps_add_Acc_Group = connection.prepareStatement(sql_add_Acc_Group);
-
-            count = count + 1;
-            for (int i = 0; i < groupIDs.length - 1; i++) {
-                count = count - 1;
-                ps_add_Acc_Group.setInt(count, Integer.parseInt(groupIDs[i]));
-
-                count = count - 1;
-                ps_add_Acc_Group.setString(count, username);
-
-            }
-
-            ps_add_Acc_Group.executeUpdate();
 
             connection.commit();
         } catch (SQLException ex) {

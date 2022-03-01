@@ -5,6 +5,7 @@
  */
 package model;
 
+import java.sql.Date;
 import java.util.ArrayList;
 
 /**
@@ -12,11 +13,9 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class Customer {
-    private int id;
-    private String name;
-    private String address;
-    private int phone;
-    private String email;
+    
+    private Person person;
+   
     private ArrayList<Orders> orders = new ArrayList<>();
 
     public ArrayList<Orders> getOrders() {
@@ -26,51 +25,15 @@ public class Customer {
     public void setOrders(ArrayList<Orders> orders) {
         this.orders = orders;
     }
-    
-    public int getId() {
-        return id;
+
+    public Person getPerson() {
+        return person;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public int getPhone() {
-        return phone;
-    }
-
-    public void setPhone(int phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String toString() {
-        return "Customer{" + "id=" + id + ", name=" + name + ", address=" + address + ", phone=" + phone + ", email=" + email + '}';
+    public void setPerson(Person person) {
+        this.person = person;
     }
     
+   
     
 }
