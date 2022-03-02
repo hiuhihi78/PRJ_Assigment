@@ -20,6 +20,11 @@ public class Orders {
     private float paid;
     private float amount;
     private Account seller;
+    
+    
+    public void deleteAOrderProduct(Order_Product d){
+        order_Products.remove(d);
+    }
 
     public float getPaid() {
         return paid;
@@ -70,6 +75,10 @@ public class Orders {
     }
 
     public float getAmount() {
+        float amount = 0;
+        for(Order_Product p : order_Products){
+            amount = amount + p.getQuantity()*p.getDiscount()*p.getSellPrice();
+        }
         return amount;
     }
 

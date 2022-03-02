@@ -29,22 +29,26 @@
                     <td>Quantity</td>
                     <td>Discout</td>
                     <td>Sell Price</td>
+                    <td></td>
                 </tr>
                 <% for (Order_Product p : order.getOrder_Products()) {%>
                 <tr>
-                    <td><%= p.getProduct().getName() %></td>
-                    <td><input type="number" name="quantity" min="0"
-                               max="<%= productDB.getProductById(p.getProduct().getId()) %>"
-                               value="<%= p.getQuantity() %>">
-                    </td>
-                    <td><input type="number" name="discount" max="100" min="0" value="<%= p.getDiscount()%>"></td>
-                    <td><input type="number" min="0" name="sellprice" value="<%= p.getSellPrice()%>"></td>
+                <input type="hidden" name="productid" value="<%= p.getProduct()%>">
+                <td><%= p.getProduct().getName()%></td>
+                <td><input type="number" name="quantity" min="0"
+                           max="<%= productDB.getProductById(p.getProduct().getId())%>"
+                           value="<%= p.getQuantity()%>">
+                </td>
+                <td><input type="number" name="discount" max="100" min="0" value="<%= p.getDiscount()%>"></td>
+                <td><input type="number" min="0" name="sellprice" value="<%= p.getSellPrice()%>"></td>
+                <td><a href = "delete?productid=<%= p.getProduct().getId() %>">Xoa</a></td>
                 </tr>
                 <%}%>
-
-               
-
             </table>
+            So tien da nhan: <input type="number" min="0" name="paid">
+            <button onclick="location.href = 'checkout'">Thanh toan</button>
         </form>
+        <button onclick="location.href = '../export/listProduct'">Tiep tuc mua hang</button>
+
     </body>
 </html>

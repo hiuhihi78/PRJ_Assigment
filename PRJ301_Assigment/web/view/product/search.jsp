@@ -53,18 +53,20 @@
             <tbody>
 
                 <c:forEach items="${requestScope.products}" var="p">
-                <td>${p.id}</td>
-                <td>${p.name}</td>
-                <td>${p.price}</td>
-                <td>${p.quantity}</td>
-                <td>${p.image}</td>
-                <td><a href="update?id=${p.id}">Update</a></td>
-                <td><a href="#" onclick="doDelete(${p.id});">Delete</a></td>
-            </c:forEach>
-        </tbody>
-    </table>
+                    <tr>
+                        <td>${p.id}</td>
+                        <td>${p.name}</td>
+                        <td>${p.price}</td>
+                        <td>${p.quantity}</td>
+                        <td>${p.image}</td>
+                        <td><a href="update?id=${p.id}">Update</a></td>
+                        <td><a href="#" onclick="doDelete(${p.id});">Delete</a></td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
 
-    <button onclick="location.href = 'insert'">Insert new product</button>
+        <button onclick="location.href = 'insert'">Insert new product</button>
 
-</body>
+    </body>
 </html>

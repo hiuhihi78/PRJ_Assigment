@@ -68,6 +68,10 @@
         <servlet-name>CheckOutOrder</servlet-name>
         <servlet-class>controller.export.CheckOutOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteProductToCartServlet</servlet-name>
+        <servlet-class>controller.export.DeleteProductToCartServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SearchProductServlet</servlet-name>
         <url-pattern>/product/search</url-pattern>
@@ -135,6 +139,10 @@
     <servlet-mapping>
         <servlet-name>CheckOutOrder</servlet-name>
         <url-pattern>/cart/checkout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductToCartServlet</servlet-name>
+        <url-pattern>/cart/delete</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

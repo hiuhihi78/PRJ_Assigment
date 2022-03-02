@@ -14,9 +14,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
-    <%
-        ArrayList<Product> products = (ArrayList<Product>) request.getAttribute("products");
-    %>
 
     <body>
         <h2>Xin mời bạn ${sessionScope.customer.person.name}, chọn mặt hàng yêu thích!</h2>
@@ -30,17 +27,19 @@
             </thead>
             <tbody>
                 <c:forEach items="${requestScope.products}" var="p">
-                <td>${p.name}</td>
-                <td>${p.price}</td>
-                <td>
-                    <form action="../cart/add" method="POST">
-                        <input type="hidden" name="id" value="${p.id}">
-                        <input type="submit" value="Select">
-                    </form>
-                </td>
-            </c:forEach>
-        </tbody>
-    </table>
+                    <tr>
+                        <td>${p.name}</td>
+                        <td>${p.price}</td>
+                        <td>
+                            <form action="../cart/add" method="POST">
+                                <input type="hidden" name="id" value="${p.id}">
+                                <input type="submit" value="Select">
+                            </form>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </tbody>
+        </table>
         <button onclick="location.href = '../cart/checkout'"">Thanh toan</button>
-</body>
+    </body>
 </html>

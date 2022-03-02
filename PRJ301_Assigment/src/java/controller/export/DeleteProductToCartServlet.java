@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package controller.authentication;
+package controller.export;
 
-import dal.AccountDBcontext;
+import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -13,15 +13,45 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Account;
+import model.Order_Product;
+import model.Orders;
+import model.Product;
 
 /**
  *
  * @author Admin
  */
-public class LoginServlet extends HttpServlet {
+public class DeleteProductToCartServlet extends HttpServlet {
 
+   
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        Orders order = (Orders) session.getAttribute("cart");
+        
+        int productId = Integer.parseInt(request.getParameter("productid"));
+       
+        Order_Product remove = new Order_Product();
+        int count = -1;
+        for(Order_Product detail : order.getOrder_Products()){
+            count++;
+            if(detail.getProduct().getId() == productId){
+                remove.setDiscount(detail.getDiscount());
+                remove.setOrders(detail.getOrders());
+                remove.setProduct(detail.getProduct());
+                remove.setQuantity(detail.getQuantity());
+                remove.setSellPrice(detail.getSellPrice());
+                break;
+            }
+        }
+        order.getOrder_Products().remove(count);
+        
+        session.setAttribute("cart", order);
+//        request.getRequestDispatcher("checkout").forward(request, response);
+        response.sendRedirect("checkout");
+    }
 
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -33,7 +63,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("view/login.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -47,22 +77,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        
-        AccountDBcontext db = new AccountDBcontext();
-        Account account = db.getAccount(username, password);
-        
-        if(account == null){
-            request.setAttribute("message", "Wrong username or password!");
-            request.getRequestDispatcher("view/login.jsp").forward(request, response);
-        }else{
-            HttpSession session = request.getSession();
-            session.setAttribute("account", account);
-//            session.setMaxInactiveInterval();
-            response.sendRedirect("home");
-        }
-        
+        processRequest(request, response);
     }
 
     /**

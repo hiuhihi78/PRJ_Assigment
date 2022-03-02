@@ -8,10 +8,12 @@ package controller.export;
 import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import model.Customer;
 import model.Order_Product;
 import model.Orders;
@@ -54,10 +56,15 @@ public class AddProductToCartServlet extends HttpServlet {
         Product product = productDB.getProductById(id);
         Customer customer = (Customer) request.getSession().getAttribute("customer");
 
+        HttpSession session = request.getSession();
         Orders order = (Orders) request.getSession().getAttribute("cart");
         if (order == null) {
             order = new Orders();
             order.setCustomer(customer);
+        }else{ // check current customer match with customer in order
+            if(customer.getPerson().getId() != order.getCustomer().getPerson().getId()){
+                order.setOrder_Products(new ArrayList<>());
+            }
         }
 
         boolean isExisted = false;
