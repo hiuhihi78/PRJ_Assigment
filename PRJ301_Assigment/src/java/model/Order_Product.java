@@ -55,6 +55,12 @@ public class Order_Product {
     public void setSellPrice(float sellPrice) {
         this.sellPrice = sellPrice;
     }
+
+    @Override
+    public String toString() {
+        return "Order_Product{" + "orders=" + orders + ", product=" + product + 
+                ", quantity=" + quantity + ", discount=" + discount + ", sellPrice=" + sellPrice + '}';
+    }
     
     
 }

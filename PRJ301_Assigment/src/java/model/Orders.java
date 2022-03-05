@@ -6,6 +6,7 @@
 package model;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 /**
@@ -13,33 +14,17 @@ import java.util.ArrayList;
  * @author Admin
  */
 public class Orders {
+
     private int id;
     private Customer customer;
-    private Date date;
+    private Timestamp date;
     private ArrayList<Order_Product> order_Products = new ArrayList<>();
     private float paid;
     private float amount;
     private Account seller;
-    
-    
-    public void deleteAOrderProduct(Order_Product d){
+
+    public void deleteAOrderProduct(Order_Product d) {
         order_Products.remove(d);
-    }
-
-    public float getPaid() {
-        return paid;
-    }
-
-    public void setPaid(float paid) {
-        this.paid = paid;
-    }
-
-    public Account getSeller() {
-        return seller;
-    }
-
-    public void setSeller(Account seller) {
-        this.seller = seller;
     }
 
     public int getId() {
@@ -58,11 +43,11 @@ public class Orders {
         this.customer = customer;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(Timestamp date) {
         this.date = date;
     }
 
@@ -74,11 +59,15 @@ public class Orders {
         this.order_Products = order_Products;
     }
 
+    public float getPaid() {
+        return paid;
+    }
+
+    public void setPaid(float paid) {
+        this.paid = paid;
+    }
+
     public float getAmount() {
-        float amount = 0;
-        for(Order_Product p : order_Products){
-            amount = amount + p.getQuantity()*p.getDiscount()*p.getSellPrice();
-        }
         return amount;
     }
 
@@ -86,6 +75,21 @@ public class Orders {
         this.amount = amount;
     }
 
-    
-    
+    public Account getSeller() {
+        return seller;
+    }
+
+    public void setSeller(Account seller) {
+        this.seller = seller;
+    }
+
+
+
+    @Override
+    public String toString() {
+        return "Orders{" + "id=" + id + ", customer=" + customer.toString()
+                + ", date=" + date + ", paid=" + paid + ", amount=" + amount
+                + ", seller=" + seller.getUsername() + '}';
+    }
+
 }

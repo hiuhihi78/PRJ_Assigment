@@ -8,6 +8,7 @@ package controller.export;
 import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,29 +24,23 @@ import model.Product;
  */
 public class DeleteProductToCartServlet extends HttpServlet {
 
-   
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Orders order = (Orders) session.getAttribute("cart");
-        
+
         int productId = Integer.parseInt(request.getParameter("productid"));
-       
-        Order_Product remove = new Order_Product();
-        int count = -1;
-        for(Order_Product detail : order.getOrder_Products()){
-            count++;
-            if(detail.getProduct().getId() == productId){
-                remove.setDiscount(detail.getDiscount());
-                remove.setOrders(detail.getOrders());
-                remove.setProduct(detail.getProduct());
-                remove.setQuantity(detail.getQuantity());
-                remove.setSellPrice(detail.getSellPrice());
-                break;
+
+        ArrayList<Order_Product> detail = new ArrayList<>();
+
+        for (Order_Product d : order.getOrder_Products()) {
+            if (d.getProduct().getId() != productId) {
+                detail.add(d);
             }
         }
-        order.getOrder_Products().remove(count);
-        
+
+        order.setOrder_Products(detail);
+
         session.setAttribute("cart", order);
 //        request.getRequestDispatcher("checkout").forward(request, response);
         response.sendRedirect("checkout");

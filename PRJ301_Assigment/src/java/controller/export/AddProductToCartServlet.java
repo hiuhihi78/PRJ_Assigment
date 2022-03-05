@@ -55,7 +55,7 @@ public class AddProductToCartServlet extends HttpServlet {
         ProductDBContext productDB = new ProductDBContext();
         Product product = productDB.getProductById(id);
         Customer customer = (Customer) request.getSession().getAttribute("customer");
-
+        
         HttpSession session = request.getSession();
         Orders order = (Orders) request.getSession().getAttribute("cart");
         if (order == null) {

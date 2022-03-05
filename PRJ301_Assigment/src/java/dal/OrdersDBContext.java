@@ -35,15 +35,15 @@ public class OrdersDBContext extends DBContext {
                     + "           ,[paid]\n"
                     + "           ,[seller])\n"
                     + "     VALUES\n"
-                    + "           (\n"
-                    + "           ,\n"
-                    + "           ,\n"
-                    + "           ,\n"
-                    + "           ,)";
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?\n"
+                    + "           ,?)";
 
             PreparedStatement ps_add_order = connection.prepareStatement(sql_add_order);
             ps_add_order.setInt(1, order.getCustomer().getPerson().getId());
-            ps_add_order.setDate(2, order.getDate());
+            ps_add_order.setTimestamp(2, order.getDate());
             ps_add_order.setFloat(3, order.getAmount());
             ps_add_order.setFloat(4, order.getPaid());
             ps_add_order.setString(5, order.getSeller().getUsername());
@@ -51,7 +51,7 @@ public class OrdersDBContext extends DBContext {
 
             // get order id
             int orderId = 0;
-            String sql_getOrderId = "Select @@INDENTITY as orderID";
+            String sql_getOrderId = "Select @@IDENTITY as OrderID";
             PreparedStatement ps_getOrderId = connection.prepareStatement(sql_getOrderId);
             ResultSet rs_getOrderId = ps_getOrderId.executeQuery();
             if (rs_getOrderId.next()) {

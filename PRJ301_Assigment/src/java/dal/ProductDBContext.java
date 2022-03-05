@@ -183,11 +183,30 @@ public class ProductDBContext extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        ProductDBContext db = new ProductDBContext();
-        for(Product p : db.getProducts()){
-            System.out.println(p);
+   
+
+    public void updateQuantity(ArrayList<Product> products) {
+        for (Product p : products) {
+            String sql = "UPDATE [Product]\n"
+                    + "   SET\n"
+                    + "      [quantity] = (select quantity - ? from product where id = ?)\n"
+                    + " WHERE id = ?";
+            try {
+                PreparedStatement ps = connection.prepareStatement(sql);
+                ps.setFloat(1, p.getQuantity());
+                ps.setInt(2, p.getId());
+                ps.setInt(3, p.getId());
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+    }
+    
+     public static void main(String[] args) {
+        ProductDBContext db = new ProductDBContext();
+         System.out.println(db.getProductById(3));
+        
     }
 
 }
