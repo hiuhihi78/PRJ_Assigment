@@ -27,7 +27,6 @@
             }
         </style>
     </head>
-    
     <body>
         <h2>Đăng nhập</h2>
         <form action="login" method="POST">

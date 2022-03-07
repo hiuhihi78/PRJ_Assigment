@@ -36,15 +36,21 @@
                 </tr>
             </thead>
             <tbody>
-                <%for (Account a : accounts) {%>
-                <tr>
-                    <td><%= a.getUsername()%></td>
-                    <td><%= a.getPassword()%></td>
-                    <td><%= a.getDisplayname()%></td>
-                    <td><a href="decentralization?username=<%= a.getUsername()%>">Phan quyen</a></td>
-                    <td><a href="delete?id=<%= a.getUsername()%>">Delete</a></td>
-                </tr>
-                <%}%>
+                <c:forEach items="${requestScope.accounts}" var="a">
+                    <tr>
+                        <td>${a.username}</td>
+                        <td>${a.password}</td>
+                        <td>${a.displayname}</td>
+                        <c:if test="${a.username !='admin'}">
+                            <td><a href="decentralization?username=${a.username}>">Phan quyen</a></td>
+                            <td><a href="delete?id=${a.username}">Delete</a></td>
+                        </c:if>
+                        <c:if test="${a.username=='admin'}">
+                            <td></td>
+                            <td></td>
+                        </c:if>
+                    </tr>
+                </c:forEach>
             </tbody>
         </table>
         <a href="insert">Insert</a>

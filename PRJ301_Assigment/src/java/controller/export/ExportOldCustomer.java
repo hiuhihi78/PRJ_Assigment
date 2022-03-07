@@ -5,31 +5,21 @@
  */
 package controller.export;
 
-import dal.OrdersDBContext;
-import dal.ProductDBContext;
+import dal.CustomerDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Array;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Account;
 import model.Customer;
-import model.Order_Product;
-import model.Orders;
-import model.Product;
 
 /**
  *
  * @author Admin
  */
-public class CheckOutOrder extends HttpServlet {
+public class ExportOldCustomer extends HttpServlet {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -42,13 +32,7 @@ public class CheckOutOrder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        Orders order = (Orders) session.getAttribute("cart");
-
-        ProductDBContext productDB = new ProductDBContext();
-        request.setAttribute("productDB", productDB);
-        request.setAttribute("cart", order);
-        request.getRequestDispatcher("../view/export/checkout.jsp").forward(request, response);
+        request.getRequestDispatcher("../view/export/oldCustomer.jsp").forward(request, response);
     }
 
     /**
@@ -62,22 +46,21 @@ public class CheckOutOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        HttpSession session = request.getSession();
-        Orders order = (Orders) session.getAttribute("cart");
-        ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
-
-        //database
-        // add record into Orders table and add records into Order_Product (1 transaction)
-        OrdersDBContext orderDB = new OrdersDBContext();
-        orderDB.insertOrder(order);
-
-        ProductDBContext productDB = new ProductDBContext();
-        productDB.updateQuantity(products);   
-
-        request.getSession().removeAttribute("cart");
-        request.getSession().removeAttribute("products");
-        request.getRequestDispatcher("../view/export/exportSuccessfully.jsp").forward(request, response);
+        if (request.getParameter("id") == null) {
+            request.setAttribute("msgId", "ID must be not empty!");
+            request.getRequestDispatcher("../view/export/oldCustomer.jsp").forward(request, response);
+        }
+        int id = Integer.parseInt(request.getParameter("id"));
+        CustomerDBContext customerDB = new CustomerDBContext();
+        Customer customer = customerDB.getCustomer(id);
+        if (customer == null) {
+            request.setAttribute("alert", "Customer is not existed!");
+            request.getRequestDispatcher("../view/export/oldCustomer.jsp").forward(request, response);
+        } else {
+            HttpSession session = request.getSession();
+            session.setAttribute("customer", customer);
+            response.sendRedirect("listProduct");
+        }
     }
 
     /**

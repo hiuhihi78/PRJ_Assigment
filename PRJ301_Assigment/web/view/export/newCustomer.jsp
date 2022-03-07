@@ -31,6 +31,9 @@
             <c:if test="${requestScope.customerExisted != null}">
                 <i style="color: red">${requestScope.customerExisted}</i><br>
             </c:if>
+            <c:if test="${requestScope.msg != null}">
+                <i style="color: red">${requestScope.msg}</i><br>
+            </c:if>
             <input type="submit" value="Save">
         </form>
     </body>

@@ -60,7 +60,7 @@ public class ExportServlet extends HttpServlet {
         if(customerType.equals("new")){
             response.sendRedirect("export/newCustomer");
         }else{
-            
+            response.sendRedirect("export/oldCustomer");
         }
     }
 

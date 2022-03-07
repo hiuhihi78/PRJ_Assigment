@@ -47,6 +47,9 @@
             </table>
         </table>
         So tien da nhan: <input type="number" min="0" value="0" name="paid">
+        <c:if test="${requestScope.msg!=null}">
+            <i style="color: red;">${requestScope.msg}</i>
+        </c:if>
         <input type="submit" value="Tạo hóa đơn">
     </form>
     <button onclick="location.href = '../export/listProduct'">Tiep tuc mua hang</button>

@@ -58,19 +58,28 @@ public class ExportNewCustomer extends HttpServlet {
         
         String id = request.getParameter("id");
         String name = request.getParameter("name");
-        Date dob = Date.valueOf(request.getParameter("dob"));
-        boolean gender = request.getParameter("gender").equals("male"); 
+        String raw_dob = request.getParameter("dob");
+        String raw_gender = request.getParameter("gender");
         String phone = request.getParameter("phone");
         String address = request.getParameter("address");
+        if (id.isEmpty() || name.isEmpty() || raw_dob.isEmpty() || raw_gender.isEmpty()
+                || phone.isEmpty() || address.isEmpty()) {
+            request.setAttribute("msg", "You must fill all the field!");
+            request.getRequestDispatcher("../view/export/newCustomer.jsp").forward(request, response);
+        }
+
+        Date dob = Date.valueOf(request.getParameter("dob"));
+        boolean gender = request.getParameter("gender").equals("male");
         
+
         PersonDBContext personDB = new PersonDBContext();
-        for(Person person : personDB.getPerson()){
-            if((person.getId()+"").equalsIgnoreCase(id)){
+        for (Person person : personDB.getPerson()) {
+            if ((person.getId() + "").equalsIgnoreCase(id)) {
                 request.setAttribute("customerExisted", "Customer existed!");
                 request.getRequestDispatcher("../view/export/newCustomer.jsp").forward(request, response);
             }
         }
-        
+
         CustomerDBContext customerDB = new CustomerDBContext();
         Customer customer = new Customer();
         Person person = new Person();
@@ -81,13 +90,13 @@ public class ExportNewCustomer extends HttpServlet {
         person.setPhone(phone);
         person.setAddress(address);
         customer.setPerson(person);
-        
+
         personDB.insertPerson(person);
         customerDB.insertCustomer(customer.getPerson().getId());
-        
+
         HttpSession session = request.getSession();
         session.setAttribute("customer", customer);
-        
+
         response.sendRedirect("listProduct");
     }
 
