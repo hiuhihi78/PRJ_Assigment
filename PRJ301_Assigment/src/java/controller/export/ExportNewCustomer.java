@@ -75,7 +75,7 @@ public class ExportNewCustomer extends HttpServlet {
         PersonDBContext personDB = new PersonDBContext();
         for (Person person : personDB.getPerson()) {
             if ((person.getId() + "").equalsIgnoreCase(id)) {
-                request.setAttribute("customerExisted", "Customer existed!");
+                request.setAttribute("customerExisted", "Customer id was existed!");
                 request.getRequestDispatcher("../view/export/newCustomer.jsp").forward(request, response);
             }
         }

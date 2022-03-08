@@ -23,6 +23,9 @@
             <c:if test="${requestScope.alert!=null}">
                 <i style="color: red;">${alert}</i>
             </c:if>
+            <c:if test="${requestScope.msgId!=null}">
+                <i style="color: red;">${msgId}</i>
+            </c:if>
         </form>
     </body>
 </html>

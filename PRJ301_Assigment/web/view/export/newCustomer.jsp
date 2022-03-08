@@ -11,30 +11,66 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/export/choseCustomer.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
+              integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" 
+              crossorigin="anonymous">
     </head>
     <body>
-        <form action="newCustomer" method="POST">
-            Nhập thông tin khách hàng <br>
-            Mã số CMTND: 
-            <input type="text" name="id" value="${param.id}"><br>
-            Họ và tên:
-            <input type="text" name="name" value="${param.name}"><br>
-            Ngày sinh: 
-            <input type="date" name="dob" value="${param.dob}"><br>
-            Giới tinh: 
-            <input type="radio" name="gender" checked="checked" value="male"> Nam  
-            <input type="radio" name="gender" value="female"> Nữ  <br>
-            Số điện thoại:
-            <input type="text" name="phone" value="${param.phone}"><br>
-            Địa chỉ:
-            <input type="text" name="address" value="${param.address}"><br>
-            <c:if test="${requestScope.customerExisted != null}">
-                <i style="color: red">${requestScope.customerExisted}</i><br>
-            </c:if>
-            <c:if test="${requestScope.msg != null}">
-                <i style="color: red">${requestScope.msg}</i><br>
-            </c:if>
-            <input type="submit" value="Save">
-        </form>
+        <div class="container-fluid ">
+            <div class="row text-center header">
+                <a id="btn-home" class="btn btn-lg" href="../home">
+                    <i class="fa fa-home fa-2x" aria-hidden="true"></i>
+                    <span style="font-weight: bold;">Home</span>
+                </a>    
+                <h2 id="title">Nhập thông tin khách hàng</h2>
+            </div>
+        </div>
+        <div class="col-lg-4" style="margin-left: 36%;margin-top: 30px; ">
+            
+            <form action="newCustomer" method="POST"  >
+                <div class="form-group">
+                    <label for="id">Mã số CMTND: </label>
+                    <input type="text"  class="form-control" name="id" value="${param.id}">
+                </div>
+                <div class="form-group">
+                    <label for="name">Họ và tên::</label>
+                    <input type="text"  class="form-control" name="name" value="${param.name}">
+                </div>
+                <div class="form-group">
+                    <label for="pwd">Ngày sinh: </label>
+                    <input type="date" class="form-control" name="dob" value="${param.dob}">
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="gender" checked="checked" value="male"> Nam  
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="gender" value="female"> Nữ 
+                    </label>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Số điện thoại:</label>
+                    <input type="text" class="form-control" name="phone" value="${param.phone}">
+                </div> 
+                <div class="form-group">
+                    <label for="address"> Địa chỉ:</label>
+                    <input type="text" class="form-control" name="address" value="${param.address}">
+                </div>
+
+                <c:if test="${requestScope.customerExisted != null}">
+                    <i class="alert alert-danger">${requestScope.customerExisted}</i><br>
+                </c:if>
+                <c:if test="${requestScope.msg != null}">
+                    <i class="alert alert-danger">${requestScope.msg}</i><br>
+                </c:if>
+                <input  class="btn btn-primary" style="margin-top: 10px;" type="submit" value="Save">
+            </form>
+        </div>
     </body>
 </html>
