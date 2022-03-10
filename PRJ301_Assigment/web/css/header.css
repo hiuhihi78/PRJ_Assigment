@@ -1,5 +1,6 @@
 .header{
-    background-color: #07A0C7;
+    background-color: #ff630b;
+    height: 100px;
 }
 
 #btn-home {
@@ -13,5 +14,9 @@
 #title{
     float: none;
     color: white;
-    
+}
+
+body{
+    background-color: #efecec;
+    background-color: linear-gradient(315deg, #efecec 0%, #f9aba4 74%);
 }

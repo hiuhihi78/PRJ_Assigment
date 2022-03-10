@@ -14,37 +14,56 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
+              integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+              crossorigin="anonymous">
+        <link href="../css/export/viewInvoice.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/header.css" rel="stylesheet" type="text/css"/>
     </head>
     <%
         Orders order = (Orders) request.getSession().getAttribute("cart");
     %>
     <body>
-        Mã số khách hàng: ${sessionScope.cart.customer.person.id}<br>
-        Tên khách hàng: ${sessionScope.cart.customer.person.name}<br>
-        Thời gian mua hàng:  ${sessionScope.cart.date}<br>
-        Sản phẩm:
-        <table>
-            <tr>
-                <td>Name</td>
-                <td>Quantity</td>
-                <td>Discout</td>
-                <td>Sell Price</td>
-                <td></td>
-            </tr>
-            <%for(Order_Product p : order.getOrder_Products()){%>
-            <tr>
-                <td><%= p.getProduct().getName() %></td>
-                <td><%= p.getQuantity() %></td>
-                <td><%= p.getDiscount() %></td>
-                <td><%= p.getSellPrice() %></td>
-            </tr>
-            <%}%>
-        </table>
-        Tổng tiền cần phải trả: <%= order.getAmount() %><br>
-        Số tiền đã trả: <%= order.getPaid() %><br>
-        <button onclick="location.history.back();">Quay lại</button>
-        <form action="../cart/checkout" method="POST">
-            <input type="submit" value="Chấp nhận"/>
-        </form>
+
+        <div class="container-fluid header">
+            <div class="row text-center">
+                <a id="btn-home" class="btn btn-lg" href="../home">
+                    <i class="fa fa-home fa-2x" aria-hidden="true"></i>
+                    <span style="font-weight: bold;">Home</span>
+                </a>    
+                <h2 id="title"  >Kiem tra hoa don</h2>
+            </div>
+        </div>
+
+        <div class="container" >
+            <h4><b>Mã số khách hàng:</b> ${sessionScope.cart.customer.person.id}</h4>
+            <h4><b>Tên khách hàng:</b> ${sessionScope.cart.customer.person.name}</h4>
+            <h4><b>Thời gian mua hàng: </b> ${sessionScope.cart.date}</h4>
+            <h4><b>Sản phẩm:</b></h4>
+            <table class="table table-striped" style="font-size: 20px;">
+                <tr>
+                    <th>Name</th>
+                    <th>Quantity</th>
+                    <th>Discout</th>
+                    <th>Sell Price</th>
+                </tr>
+                <c:forEach items="${sessionScope.cart.getOrder_Products()}" var="p">
+                    <tr>
+                        <td>${p.product.name}</td>
+                        <td>${p.quantity}</td>
+                        <td>${p.discount}</td>
+                        <td>${p.sellPrice}</td>
+                    </tr>
+                </c:forEach>
+            </table>
+            <h4><b>Tổng tiền cần phải trả:</b> <%= order.getAmount()%></h4>
+            <h4><b>Số tiền đã trả:</b> <%= order.getPaid()%></h4>
+            <button class="btn btn-info" id="previous" onclick="window.history.go(-1);">Quay lại</button>
+            <form action="../cart/checkout" method="POST">
+                <input class="btn btn-danger" id="submit" type="submit" value="Chấp nhận"/>
+            </form>
+        </div>
     </body>
 </html>

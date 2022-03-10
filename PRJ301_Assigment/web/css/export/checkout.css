@@ -7,6 +7,7 @@ and open the template in the editor.
     Created on : Mar 8, 2022, 5:44:13 PM
     Author     : Admin
 */
+
 .body{
     width: 70%;
     margin: 0 auto;
@@ -28,10 +29,6 @@ and open the template in the editor.
 }
 .body form table tr td:nth-child(5){
      width: 10%;
-}
-
-.body form table tr td input{
-    width: 90%;
 }
 
 #submit{

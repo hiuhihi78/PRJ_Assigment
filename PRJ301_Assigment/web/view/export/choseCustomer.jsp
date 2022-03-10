@@ -14,10 +14,11 @@
         <link href="css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="css/export/choseCustomer.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+        <link href="css/header.css" rel="stylesheet" type="text/css"/>
     </head>
     <body>
-        <div class="container-fluid header">
-            <div class="row text-center">
+        <div class="container-fluid ">
+            <div class="row text-center header">
                 <a id="btn-home" class="btn btn-lg" href="home">
                     <i class="fa fa-home fa-2x" aria-hidden="true"></i>
                     <span style="font-weight: bold;">Home</span>

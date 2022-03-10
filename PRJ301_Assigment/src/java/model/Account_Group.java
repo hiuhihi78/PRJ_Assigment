@@ -28,6 +28,11 @@ public class Account_Group {
     public void setGroup(Group group) {
         this.group = group;
     }
+
+    @Override
+    public String toString() {
+        return "Account_Group{" + "account=" + account.getUsername() + ", group=" + group.getId() + '}';
+    }
     
     
 }

@@ -19,6 +19,7 @@
               crossorigin="anonymous">
         <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/header.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body>
@@ -32,7 +33,8 @@
             </div>
         </div>
         <div class="container" style="margin-top: 50px;">
-            <table class="table table-bordered table-hover" style="font-size: 20px">
+            <table class="table table-bordered table-hover" style="font-size: 20px;
+                   background-color: white; border-radius: 10px; ">
                 <thead>
                     <tr>
                         <th>Name</th>
@@ -57,7 +59,7 @@
             </table>
         </div>
             <div style="margin-left: 70%;">
-            <button class="btn btn-secondary" onclick="location.href = '../cart/checkout'"">Thanh toan</button>
+            <button class="btn btn-danger" onclick="location.href = '../cart/checkout'"">Thanh toan</button>
         </div>
     </body>
 </html>

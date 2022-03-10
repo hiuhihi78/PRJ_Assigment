@@ -16,13 +16,13 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <script src="../js/checkout.js" type="text/javascript"></script>
         <title>JSP Page</title>
-        <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/export/checkout.css" rel="stylesheet" type="text/css"/>
         <link href="../css/header.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
               integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
               crossorigin="anonymous">
-        <link href="../css/export/checkout.css" rel="stylesheet" type="text/css"/>
     </head>
     <%
         ProductDBContext productDB = new ProductDBContext();
@@ -38,15 +38,18 @@
                 <h2 id="title">Thanh toán</h2>
             </div>
         </div>
-        <div class="body">
+
+        <div class="body" style="margin-top: 50px;border: 1px solid black;
+             border-radius: 10px; background-color: white; padding-left: 5px;">
+            <p></p>
             <form action="../export/viewInvoice" method="GET">
-                <table class="table table-striped">
+                <table class="table table-hover">
                     <tr>
-                        <td>Name</td>
-                        <td>Quantity</td>
-                        <td>Discout</td>
-                        <td>Sell Price</td>
-                        <td></td>
+                        <td ><b>Name</b></td>
+                        <td ><b>Quantity</b></td>
+                        <td ><b>Discout</b></td>
+                        <td ><b>Sell Price</b></td>
+                        <td ></td>
                     </tr>
                     <% for (Order_Product p : order.getOrder_Products()) {%>
                     <tr>
@@ -66,12 +69,12 @@
                 <p>So tien da nhan: 
                     <input  style="width: 200px; " type="number" min="0" value="0" name="paid">
                 </p>
-                    <c:if test="${requestScope.alter!=null}">
+                <c:if test="${requestScope.alter!=null}">
                     <i id="alter" style="color: red;">${requestScope.alter}</i>
                 </c:if>
                 <input id="submit" class="btn btn-danger" type="submit" value="Tạo hóa đơn">
             </form>
-                <button id="previous" class="btn btn-secondary" onclick="location.href = '../export/listProduct'">Tiep tuc mua hang</button>
+            <button id="previous" class="btn btn-secondary" onclick="location.href = '../export/listProduct'">Tiep tuc mua hang</button>
         </div>
 
     </body>

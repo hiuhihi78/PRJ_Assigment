@@ -1,17 +1,3 @@
-.header{
-    background-color: #07A0C7;
-}
-
-#btn-home {
-    padding: 10px;
-    background-color: #28a745;
-    color: white;
-    font-weight: bold;
-    float: left;
-}
-
-#title{
-    float: none;
-    color: white;
-    
+table{
+    background-color: white;
 }
