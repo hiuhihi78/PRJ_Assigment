@@ -28,7 +28,7 @@
         ProductDBContext productDB = new ProductDBContext();
         Orders order = (Orders) request.getSession().getAttribute("cart");
     %>
-    <body>
+    <body style="background-color: #efecec;">
         <div class="container-fluid ">
             <div class="row text-center header">
                 <a id="btn-home" class="btn btn-lg" href="../home">
@@ -43,8 +43,8 @@
              border-radius: 10px; background-color: white; padding-left: 5px;">
             <p></p>
             <form action="../export/viewInvoice" method="GET">
-                <table class="table table-hover">
-                    <tr>
+                <table class="table table-bordered table-hover">
+                    <tr style="background-color: #07A0C7">
                         <td ><b>Name</b></td>
                         <td ><b>Quantity</b></td>
                         <td ><b>Discout</b></td>

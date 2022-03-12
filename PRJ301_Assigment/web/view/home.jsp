@@ -63,7 +63,7 @@ Author     : Admin
                     <button onclick="doNavigation('#');">Nhập hàng</button>
                 </div>
                 <div class="col-lg-4 navigation">
-                    <button onclick="doNavigation('#');">Hóa Đơn</button>
+                    <button onclick="doNavigation('order/search');">Hóa Đơn</button>
                 </div>
             </div>
 

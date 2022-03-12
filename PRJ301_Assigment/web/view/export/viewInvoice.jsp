@@ -41,9 +41,10 @@
             <h4><b>Mã số khách hàng:</b> ${sessionScope.cart.customer.person.id}</h4>
             <h4><b>Tên khách hàng:</b> ${sessionScope.cart.customer.person.name}</h4>
             <h4><b>Thời gian mua hàng: </b> ${sessionScope.cart.date}</h4>
+            <h4><b>Người bán: </b>${sessionScope.account.displayname}</h4>
             <h4><b>Sản phẩm:</b></h4>
-            <table class="table table-striped" style="font-size: 20px;">
-                <tr>
+            <table class="table table-bordered table-hover" style="font-size: 20px;">
+                <tr style="background-color: #07A0C7">
                     <th>Name</th>
                     <th>Quantity</th>
                     <th>Discout</th>
@@ -64,6 +65,8 @@
             <form action="../cart/checkout" method="POST">
                 <input class="btn btn-danger" id="submit" type="submit" value="Chấp nhận"/>
             </form>
+            
+           
         </div>
     </body>
 </html>

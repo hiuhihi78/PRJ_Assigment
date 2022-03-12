@@ -44,6 +44,13 @@ public class CheckOutOrder extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Orders order = (Orders) session.getAttribute("cart");
+        if (order == null || order.getOrder_Products().size() == 0) {
+            ProductDBContext productDB = new ProductDBContext();
+            request.setAttribute("productDB", productDB);
+            request.setAttribute("cart", order);
+            request.setAttribute("alter", "Bạn chưa chọn mặt hàng nào!");
+            request.getRequestDispatcher("../export/listProduct").forward(request, response);
+        }
 
         ProductDBContext productDB = new ProductDBContext();
         request.setAttribute("productDB", productDB);
@@ -62,7 +69,7 @@ public class CheckOutOrder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
         Orders order = (Orders) session.getAttribute("cart");
         ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
@@ -73,7 +80,7 @@ public class CheckOutOrder extends HttpServlet {
         orderDB.insertOrder(order);
 
         ProductDBContext productDB = new ProductDBContext();
-        productDB.updateQuantity(products);   
+        productDB.updateQuantity(products);
 
         request.getSession().removeAttribute("cart");
         request.getSession().removeAttribute("products");

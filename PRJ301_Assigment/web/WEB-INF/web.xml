@@ -80,6 +80,10 @@
         <servlet-name>ExportOldCustomer</servlet-name>
         <servlet-class>controller.export.ExportOldCustomer</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchOrderServlet</servlet-name>
+        <servlet-class>controller.order.SearchOrderServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SearchProductServlet</servlet-name>
         <url-pattern>/product/search</url-pattern>
@@ -159,6 +163,10 @@
     <servlet-mapping>
         <servlet-name>ExportOldCustomer</servlet-name>
         <url-pattern>/export/oldCustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchOrderServlet</servlet-name>
+        <url-pattern>/order/search</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

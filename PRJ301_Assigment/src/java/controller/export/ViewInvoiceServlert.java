@@ -50,10 +50,12 @@ public class ViewInvoiceServlert extends HttpServlet {
         String[] raw_discount = request.getParameterValues("discount");
         String[] raw_sellPrice = request.getParameterValues("sellprice");
         String raw_paid = request.getParameter("paid");
+        
+        // check input empty
         for(int i = 0 ; i < raw_productId.length ; i++){
             if(raw_productId[i].isEmpty() || raw_quantity[i].isEmpty() || 
                 raw_discount[i].isEmpty() || raw_sellPrice[i].isEmpty()){
-                request.setAttribute("alter", "altet");
+                
                 request.getRequestDispatcher("../cart/checkout").forward(request, response);
             }
         }

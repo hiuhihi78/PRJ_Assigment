@@ -64,7 +64,7 @@ public class ExportNewCustomer extends HttpServlet {
         String address = request.getParameter("address");
         if (id.isEmpty() || name.isEmpty() || raw_dob.isEmpty() || raw_gender.isEmpty()
                 || phone.isEmpty() || address.isEmpty()) {
-            request.setAttribute("msg", "You must fill all the field!");
+            request.setAttribute("msg", "Bạn cần điền đầy đủ thông tin!");
             request.getRequestDispatcher("../view/export/newCustomer.jsp").forward(request, response);
         }
 
@@ -75,7 +75,7 @@ public class ExportNewCustomer extends HttpServlet {
         PersonDBContext personDB = new PersonDBContext();
         for (Person person : personDB.getPerson()) {
             if ((person.getId() + "").equalsIgnoreCase(id)) {
-                request.setAttribute("customerExisted", "Customer id was existed!");
+                request.setAttribute("customerExisted", "Mã số khách hàng đã tồn tại!");
                 request.getRequestDispatcher("../view/export/newCustomer.jsp").forward(request, response);
             }
         }

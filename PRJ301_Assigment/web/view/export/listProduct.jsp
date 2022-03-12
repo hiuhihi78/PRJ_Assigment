@@ -20,6 +20,10 @@
         <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
         <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
         <link href="../css/header.css" rel="stylesheet" type="text/css"/>
+
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body>
@@ -33,10 +37,10 @@
             </div>
         </div>
         <div class="container" style="margin-top: 50px;">
-            <table class="table table-bordered table-hover" style="font-size: 20px;
+            <table id="table" class="table table-bordered table-hover" style="font-size: 20px;
                    background-color: white; border-radius: 10px; ">
                 <thead>
-                    <tr>
+                    <tr style="background-color: #07A0C7">
                         <th>Name</th>
                         <th>Price</th>
                         <th></th>
@@ -58,8 +62,15 @@
                 </tbody>
             </table>
         </div>
-            <div style="margin-left: 70%;">
-            <button class="btn btn-danger" onclick="location.href = '../cart/checkout'"">Thanh toan</button>
+        <div style="margin-left: 70%;">
+            <c:if test="${requestScope.alter != null}">
+                <div style="width: 15vw;" class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Thông báo!</strong> ${requestScope.alter}
+                </div>
+            </c:if>
+            <button class="btn btn-info" id="previous" onclick="window.history.go(-1);">Quay lại</button>
+            <button class="btn btn-danger" onclick="location.href = '../cart/checkout'">Thanh toan</button>
         </div>
     </body>
 </html>

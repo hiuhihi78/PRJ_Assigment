@@ -47,14 +47,14 @@ public class ExportOldCustomer extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("id").isEmpty()) {
-            request.setAttribute("msgId", "ID must be not empty!");
+            request.setAttribute("msgId", "Mã CMTND không được trống!");
             request.getRequestDispatcher("../view/export/oldCustomer.jsp").forward(request, response);
         }
         int id = Integer.parseInt(request.getParameter("id"));
         CustomerDBContext customerDB = new CustomerDBContext();
         Customer customer = customerDB.getCustomer(id);
         if (customer == null) {
-            request.setAttribute("alert", "Customer is not existed!");
+            request.setAttribute("alert", "Mã khách hàng không tồn tại!");
             request.getRequestDispatcher("../view/export/oldCustomer.jsp").forward(request, response);
         } else {
             HttpSession session = request.getSession();

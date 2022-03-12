@@ -129,6 +129,7 @@ public class AccountDBcontext extends DBContext {
     }
 
     public void insertAccount(Account account) {
+        try {
         String query = "INSERT INTO [Account]\n"
                 + "           ([username]\n"
                 + "           ,[password]\n"
@@ -137,7 +138,7 @@ public class AccountDBcontext extends DBContext {
                 + "           (?\n"
                 + "           ,?\n"
                 + "           ,?)";
-        try {
+        
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, account.getUsername());
             ps.setString(2, account.getPassword());

@@ -34,7 +34,7 @@
             <form action="oldCustomer" method="POST">
                 <label for="id">Mã CMTND: </label>
                 <input type="number" name="id" value="${param.id}">
-                <input type="submit" value="search">
+                <input class="btn btn-danger " type="submit" value="search">
             </form>
                 <c:if test="${requestScope.msgId!=null}">
                     <p id="message">${msgId}</p>
