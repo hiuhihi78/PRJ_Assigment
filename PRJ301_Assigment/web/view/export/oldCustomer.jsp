@@ -20,7 +20,7 @@
         <link href="../css/export/oldCustomer.css" rel="stylesheet" type="text/css"/>
         
     </head>
-    <body>
+    <body style="background-color: #efecec;">
         <div class="container-fluid ">
             <div class="row text-center header">
                 <a id="btn-home" class="btn btn-lg" href="../home">
@@ -34,7 +34,7 @@
             <form action="oldCustomer" method="POST">
                 <label for="id">Mã CMTND: </label>
                 <input type="number" name="id" value="${param.id}">
-                <input class="btn btn-danger " type="submit" value="search">
+                <input class="btn btn-success " type="submit" value="search">
             </form>
                 <c:if test="${requestScope.msgId!=null}">
                     <p id="message">${msgId}</p>

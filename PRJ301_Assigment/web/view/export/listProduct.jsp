@@ -70,7 +70,7 @@
                 </div>
             </c:if>
             <button class="btn btn-info" id="previous" onclick="window.history.go(-1);">Quay lại</button>
-            <button class="btn btn-danger" onclick="location.href = '../cart/checkout'">Thanh toan</button>
+            <button class="btn btn-danger" id="submit" onclick="location.href = '../cart/checkout'">Thanh toan</button>
         </div>
     </body>
 </html>

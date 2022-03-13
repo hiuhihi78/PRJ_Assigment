@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public class Product {
     private int id;
     private String name;
-    private float price;
+    private long price;
     private float quantity;
     private String image;
     
@@ -34,11 +34,11 @@ public class Product {
         this.name = name;
     }
 
-    public float getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(long price) {
         this.price = price;
     }
 

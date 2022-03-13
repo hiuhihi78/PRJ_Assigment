@@ -35,39 +35,39 @@ public class SearchOrderServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        
+
         String raw_orderID = request.getParameter("orderID");
         String raw_customerID = request.getParameter("customerID");
         String raw_customerName = request.getParameter("customerName");
-        String raw_dateFrom =  request.getParameter("dateFrom");
+        String raw_dateFrom = request.getParameter("dateFrom");
         String raw_dateTo = request.getParameter("dateTo");
         String raw_username = request.getParameter("username");
-        
-        if(raw_orderID == null ||  raw_orderID.isEmpty()){
+
+        if (raw_orderID == null || raw_orderID.isEmpty()) {
             raw_orderID = "-1";
         }
-        
-        if(raw_customerID == null ||  raw_customerID.isEmpty()){
+
+        if (raw_customerID == null || raw_customerID.isEmpty()) {
             raw_customerID = "-1";
         }
-        
-        if(raw_customerName == null || raw_customerName.isEmpty()){
-            raw_customerName = "";
+
+        if (raw_customerName == null || raw_customerName.isEmpty()) {
+            raw_customerName = null;
         }
-        
-        if(raw_username == null || raw_username.isEmpty()){
-            raw_username = "";
+
+        if (raw_username == null || raw_username.isEmpty()) {
+            raw_username = null;
         }
-                
+
         int orderID = Integer.parseInt(raw_orderID);
         int customerID = Integer.parseInt(raw_customerID);
         String customerName = raw_customerName;
-        java.sql.Date dateFrom = (raw_dateFrom == null || raw_dateFrom.isEmpty()) 
+        java.sql.Date dateFrom = (raw_dateFrom == null || raw_dateFrom.isEmpty())
                 ? null : java.sql.Date.valueOf(raw_dateFrom);
-        java.sql.Date dateTo = (raw_dateTo == null || raw_dateTo.isEmpty()) 
+        java.sql.Date dateTo = (raw_dateTo == null || raw_dateTo.isEmpty())
                 ? null : java.sql.Date.valueOf(raw_dateTo);
         String username = raw_username;
-        
+
         int pagesize = 10;
         int pageindex;
         String raw_page = request.getParameter("page");
@@ -82,16 +82,27 @@ public class SearchOrderServlet extends HttpServlet {
             }
         }
         OrdersDBContext orderDB = new OrdersDBContext();
-        ArrayList<Orders> orders = orderDB.getOrders(pagesize, pageindex, orderID, 
+        // get total record of this qurery searcch
+        int totalRecord = orderDB.getTotalRecordForAQuerySearch(orderID,
                 customerID, customerName, dateFrom, dateTo, username);
+        int totalPage = 0;
+        if (totalRecord % pagesize == 0) {
+            totalPage = totalRecord / pagesize;
+        } else {
+            totalPage = totalRecord / pagesize + 1;
+        }
         
-        int totalRecord = orders.size();
-        int totalPage = (totalRecord % pagesize == 0)?totalRecord / pagesize : totalRecord / pagesize + 1;
-        
-        
+        if(totalPage <= 1){
+            pageindex = -1;
+            pagesize = -1;
+        }
+        // get result search
+        ArrayList<Orders> orders = orderDB.getOrders(pagesize, pageindex, orderID,
+                customerID, customerName, dateFrom, dateTo, username);
+
         // set max datefrom
         String dateFromset = "";
-        if(dateFrom == null){
+        if (dateFrom == null) {
             try {
                 dateFromset = dateFormat.format(dateTo);
             } catch (Exception e) {
@@ -101,7 +112,7 @@ public class SearchOrderServlet extends HttpServlet {
         request.setAttribute("dateFromset", dateFromset);
         Date currentDate = new Date();
         request.setAttribute("currentDate", dateFormat.format(currentDate));
-        
+
         request.setAttribute("orders", orders);
         request.setAttribute("totalPage", totalPage);
         request.setAttribute("page", pageindex);

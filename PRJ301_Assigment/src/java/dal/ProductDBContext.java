@@ -8,6 +8,7 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,7 +35,7 @@ public class ProductDBContext extends DBContext {
                 Product p = new Product();
                 p.setId(rs.getInt(1));
                 p.setName(rs.getString(2));
-                p.setPrice(rs.getFloat(3));
+                p.setPrice(rs.getLong(3));
                 p.setQuantity(rs.getFloat(4));
                 p.setImage(rs.getString(5));
                 products.add(p);
@@ -63,7 +64,7 @@ public class ProductDBContext extends DBContext {
                 Product p = new Product();
                 p.setId(rs.getInt(1));
                 p.setName(rs.getString(2));
-                p.setPrice(rs.getFloat(3));
+                p.setPrice(rs.getLong(3));
                 p.setQuantity(rs.getFloat(4));
                 p.setImage(rs.getString(5));
                 products.add(p);
@@ -90,7 +91,7 @@ public class ProductDBContext extends DBContext {
                 Product p = new Product();
                 p.setId(rs.getInt(1));
                 p.setName(rs.getString(2));
-                p.setPrice(rs.getFloat(3));
+                p.setPrice(rs.getLong(3));
                 p.setQuantity(rs.getFloat(4));
                 p.setImage(rs.getString(5));
                 return p;
@@ -115,13 +116,24 @@ public class ProductDBContext extends DBContext {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, product.getName());
-            ps.setFloat(2, product.getPrice());
+            ps.setLong(2, product.getPrice());
             ps.setFloat(3, product.getQuantity());
             ps.setString(4, product.getImage());
             ps.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static void main(String[] args) {
+        ProductDBContext db = new ProductDBContext();
+        Product p = new Product();
+        p.setName("Gừng");
+        p.setPrice(100);
+        p.setQuantity(100);
+        p.setImage("a");
+        db.insertProduct(p);
+
     }
 
     public Product getProductById(int id) {
@@ -140,7 +152,7 @@ public class ProductDBContext extends DBContext {
                 Product p = new Product();
                 p.setId(rs.getInt(1));
                 p.setName(rs.getString(2));
-                p.setPrice(rs.getFloat(3));
+                p.setPrice(rs.getLong(3));
                 p.setQuantity(rs.getFloat(4));
                 p.setImage(rs.getString(5));
                 return p;
@@ -161,7 +173,7 @@ public class ProductDBContext extends DBContext {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, product.getName());
-            ps.setFloat(2, product.getPrice());
+            ps.setLong(2, product.getPrice());
             ps.setFloat(3, product.getQuantity());
             ps.setString(4, product.getImage());
             ps.setInt(5, product.getId());
@@ -183,8 +195,6 @@ public class ProductDBContext extends DBContext {
         }
     }
 
-   
-
     public void updateQuantity(ArrayList<Product> products) {
         for (Product p : products) {
             String sql = "UPDATE [Product]\n"
@@ -201,12 +211,6 @@ public class ProductDBContext extends DBContext {
                 Logger.getLogger(ProductDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }
-    
-     public static void main(String[] args) {
-        ProductDBContext db = new ProductDBContext();
-         System.out.println(db.getProductById(3));
-        
     }
 
 }
