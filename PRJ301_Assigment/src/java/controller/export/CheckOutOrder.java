@@ -77,10 +77,10 @@ public class CheckOutOrder extends HttpServlet {
         //database
         // add record into Orders table and add records into Order_Product (1 transaction)
         OrdersDBContext orderDB = new OrdersDBContext();
-        orderDB.insertOrder(order);
+        orderDB.insertOrder(order,products);
 
-        ProductDBContext productDB = new ProductDBContext();
-        productDB.updateQuantity(products);
+//        ProductDBContext productDB = new ProductDBContext();
+//        productDB.updateQuantity(products);
 
         request.getSession().removeAttribute("cart");
         request.getSession().removeAttribute("products");

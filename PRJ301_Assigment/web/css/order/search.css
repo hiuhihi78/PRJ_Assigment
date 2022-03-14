@@ -8,12 +8,12 @@ and open the template in the editor.
     Author     : Admin
 */
 /*
-#orderId{
-    margin-right: 0%;
+*/#orderId{
+    margin-right: 4%;
 }
 
 #cName{
-    margin-right: 3%;
+    margin-right: 2%;
 }
 
 #seller{
@@ -22,4 +22,11 @@ and open the template in the editor.
 .input{
     border-radius: 5px;
     border: 1px  solid gray ;
-}*/
+}
+
+#form{
+    margin-top: 20px;
+    /*border:1px solid black;*/
+    width: 90%;
+    /*border-radius:  10px;*/
+}

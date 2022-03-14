@@ -28,7 +28,6 @@ import model.Product;
  */
 public class ViewInvoiceServlert extends HttpServlet {
 
-
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -40,7 +39,21 @@ public class ViewInvoiceServlert extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                HttpSession session = request.getSession();
+
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
         Orders order = (Orders) session.getAttribute("cart");
         Customer customer = (Customer) session.getAttribute("customer");
         Account seller = (Account) session.getAttribute("account");
@@ -50,12 +63,12 @@ public class ViewInvoiceServlert extends HttpServlet {
         String[] raw_discount = request.getParameterValues("discount");
         String[] raw_sellPrice = request.getParameterValues("sellprice");
         String raw_paid = request.getParameter("paid");
-        
+
         // check input empty
-        for(int i = 0 ; i < raw_productId.length ; i++){
-            if(raw_productId[i].isEmpty() || raw_quantity[i].isEmpty() || 
-                raw_discount[i].isEmpty() || raw_sellPrice[i].isEmpty()){
-                
+        for (int i = 0; i < raw_productId.length; i++) {
+            if (raw_productId[i].isEmpty() || raw_quantity[i].isEmpty()
+                    || raw_discount[i].isEmpty() || raw_sellPrice[i].isEmpty()) {
+
                 request.getRequestDispatcher("../cart/checkout").forward(request, response);
             }
         }
@@ -90,7 +103,6 @@ public class ViewInvoiceServlert extends HttpServlet {
         }
         order.setAmount(amount);
 //        response.getWriter().print(" amount  " + order.getAmount());
-        
 
         // change quatity product in product table
         ArrayList<Product> products = new ArrayList<>();
@@ -100,23 +112,10 @@ public class ViewInvoiceServlert extends HttpServlet {
             product.setQuantity(Float.parseFloat(raw_quantity[i]));
             products.add(product);
         }
-        
+
         session.setAttribute("cart", order);
         session.setAttribute("products", products);
         request.getRequestDispatcher("../view/export/viewInvoice.jsp").forward(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
     }
 
     /**

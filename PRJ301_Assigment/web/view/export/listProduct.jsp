@@ -41,8 +41,8 @@
                    background-color: white; border-radius: 10px; ">
                 <thead>
                     <tr style="background-color: #07A0C7">
-                        <th>Name</th>
-                        <th>Price</th>
+                        <th>Tên sản phẩm</th>
+                        <th>Giá</th>
                         <th></th>
                     </tr>
                 </thead>

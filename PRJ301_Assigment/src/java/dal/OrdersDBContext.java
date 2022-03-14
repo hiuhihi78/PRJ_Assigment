@@ -30,7 +30,7 @@ import model.Product;
  */
 public class OrdersDBContext extends DBContext {
 
-    public void insertOrder(Orders order) {
+    public void insertOrder(Orders order, ArrayList<Product> products) {
         try {
             connection.setAutoCommit(false);
         } catch (SQLException ex) {
@@ -50,7 +50,6 @@ public class OrdersDBContext extends DBContext {
                     + "           ,?\n"
                     + "           ,?\n"
                     + "           ,?)";
-
             PreparedStatement ps_add_order = connection.prepareStatement(sql_add_order);
             ps_add_order.setInt(1, order.getCustomer().getPerson().getId());
             ps_add_order.setTimestamp(2, order.getDate());
@@ -88,6 +87,19 @@ public class OrdersDBContext extends DBContext {
                 ps_add_detail.setFloat(4, d.getSellPrice());
                 ps_add_detail.setFloat(5, d.getDiscount());
                 ps_add_detail.executeUpdate();
+            }
+
+            // update quantity products
+            for (Product p : products) {
+                String sql_updateQuantity = "UPDATE [Product]\n"
+                        + "   SET\n"
+                        + "      [quantity] = (select quantity - ? from product where id = ?)\n"
+                        + " WHERE id = ?";
+                PreparedStatement ps_updateQuantity = connection.prepareStatement(sql_updateQuantity);
+                ps_updateQuantity.setFloat(1, p.getQuantity());
+                ps_updateQuantity.setInt(2, p.getId());
+                ps_updateQuantity.setInt(3, p.getId());
+                ps_updateQuantity.executeUpdate();
             }
 
             connection.commit();
@@ -281,8 +293,6 @@ public class OrdersDBContext extends DBContext {
         return orders;
     }
 
-   
-
     public int getTotalRecordForAQuerySearch(int orderID, int customerID, String customerName, Date dateFrom, Date dateTo, String username) {
         ArrayList<Orders> orders = new ArrayList<>();
         String sql = "select  orderID, customerID,t.name ,date, amout, paid, t.username,t.displayname \n"
@@ -420,7 +430,7 @@ public class OrdersDBContext extends DBContext {
                 order.setSeller(seller);
                 order.setPaid(rs.getFloat(6));
                 order.setAmount(rs.getFloat(7));
-                
+
                 Order_Product detail = new Order_Product();
                 Product product = new Product();
                 product.setName(rs.getString(8));
@@ -436,7 +446,7 @@ public class OrdersDBContext extends DBContext {
         }
         return order;
     }
-    
+
     public static void main(String[] args) {
         OrdersDBContext db = new OrdersDBContext();
 //        for (Orders o : db.getOrders(1, 1, -1, -1, null, null, null, null)) {

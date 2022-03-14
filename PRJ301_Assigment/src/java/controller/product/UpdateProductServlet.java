@@ -61,7 +61,7 @@ public class UpdateProductServlet extends BaseAuthentication {
         Product product = new Product();
         product.setId(Integer.parseInt(raw_id));
         product.setName(raw_name);
-        product.setPrice(Float.parseFloat(raw_price));
+        product.setPrice(Long.parseLong(raw_price));
         product.setQuantity(Float.parseFloat(raw_Quantity));
         product.setImage(raw_image);
         

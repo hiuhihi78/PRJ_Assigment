@@ -10,49 +10,52 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <style>
-            body{
-                text-align: center;
-            }
-            table{
-                margin: 0 auto;
-            }
-            #regiser{
-                position: relative;
-                left:40%;
-            }
-            #regiser a{
-                text-decoration: none;
-                color: black;
+            #form{
+                border: 1px solid black;
+                border-radius: 10px;
+                padding-bottom: 20px;
+                margin-top: 100px;
+                padding-top: 20px;
+                background-color: white;
             }
         </style>
     </head>
-    <body>
-        <h2>Đăng nhập</h2>
-        <form action="login" method="POST">
-            <table>
-                <tr>
-                    <td>User name: </td>
-                    <td><input type="text" name="username" value="${param.username}"></td>
-                </tr>
-                <tr>
-                    <td>Password: </td>
-                    <td><input type="password" name="password" value="${param.password}"></td>
-                </tr>
-                <c:if test="${requestScope.message!=null}">
-                    <tr>
-                        <td></td>
-                        <td><i style="color: red">${requestScope.message}</td>
-                    </tr>
-                </c:if>
-                <tr>
-                    <td><button id="regiser"><a href="account/insert">Đăng kí</a></button></td>
-                    <td>
-                        <input type="submit" value="Đăng nhập">
-                    </td>
-                </tr>
-            </table>
-        </form>
+    <body style="background-color: #efecec;">
+        <div  class="container-fluid">
+            <div class="row">
+                <div class="col-md-2"></div>
 
+                <div class="col-md-3" id="form">
+                    <h2>Đăng nhập</h2>
+                    <form action="login" method="POST" class="was-validated">
+                        <div class="form-group">
+                            <label for="username">Tên đăng nhập: </label>
+                            <input type="text" class="form-control" placeholder="Nhập tên đăng nhập" 
+                                   name="username" value="${param.username}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username">Mật khẩu: </label>
+                            <input type="password" class="form-control" id="uname" placeholder="Nhập mật khẩu" 
+                                   name="password"  value="${param.password}" required>
+
+                        </div>
+
+                        <c:if test="${requestScope.message!=null}">
+                            <div class="alert alert-danger ">
+                                Tên đăng nhập hoặc mật khẩu không đúng!
+                            </div>
+                        </c:if>
+                            <a href="register" class="btn btn-info" role="button">Đăng kí</a>
+                        <input class="btn btn-success" type="submit" value="Đăng nhập">
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

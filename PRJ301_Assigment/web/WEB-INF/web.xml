@@ -88,6 +88,10 @@
         <servlet-name>DetailOrderServlet</servlet-name>
         <servlet-class>controller.order.DetailOrderServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RegisterServlet</servlet-name>
+        <servlet-class>controller.authentication.RegisterServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SearchProductServlet</servlet-name>
         <url-pattern>/product/search</url-pattern>
@@ -175,6 +179,10 @@
     <servlet-mapping>
         <servlet-name>DetailOrderServlet</servlet-name>
         <url-pattern>/order/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegisterServlet</servlet-name>
+        <url-pattern>/register</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

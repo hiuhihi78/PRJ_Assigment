@@ -40,28 +40,30 @@
         </div>
 
         <div class="body" style="margin-top: 50px;border: 1px solid black;
-             border-radius: 10px; background-color: white; padding-left: 5px;">
+             border-radius: 10px; background-color: white; padding-left: 5px;
+             padding-right: 5px;"
+             >
             <p></p>
-            <form action="../export/viewInvoice" method="GET">
+            <form action="../export/viewInvoice" method="POST">
                 <table class="table table-bordered table-hover">
                     <tr style="background-color: #07A0C7">
-                        <td ><b>Name</b></td>
-                        <td ><b>Quantity</b></td>
-                        <td ><b>Discout</b></td>
-                        <td ><b>Sell Price</b></td>
+                        <td ><b>Giá</b></td>
+                        <td ><b>Số lượng</b></td>
+                        <td ><b>Giảm giá(%)</b></td>
+                        <td ><b>Giá bán</b></td>
                         <td ></td>
                     </tr>
                     <% for (Order_Product p : order.getOrder_Products()) {%>
                     <tr>
                     <input type="hidden" name="productid" value="<%= p.getProduct().getId()%>">
                     <td><%= p.getProduct().getName()%></td>
-                    <td><input type="number" name="quantity" min="0"
+                    <td><input type="number" name="quantity" min="1"
                                max="<%= productDB.getProductById(p.getProduct().getId()).getQuantity()%>"
                                value="<%= p.getQuantity()%>">
                     </td>
                     <td><input type="number" name="discount" max="100" min="0" value="<%= p.getDiscount()%>"></td>
                     <td><input type="number" min="0" name="sellprice" value="<%= p.getSellPrice()%>"></td>
-                    <td><a href = "delete?productid=<%= p.getProduct().getId()%>">Xoa</a></td>
+                    <td><a href = "delete?productid=<%= p.getProduct().getId()%>">Xóa</a></td>
                     </tr>
                     <%}%>
                 </table>
@@ -74,7 +76,9 @@
                 </c:if>
                 <input id="submit" class="btn btn-danger" type="submit" value="Tạo hóa đơn">
             </form>
-            <button id="previous" class="btn btn-secondary" onclick="location.href = '../export/listProduct'">Tiep tuc mua hang</button>
+            <button id="previous" class="btn btn-secondary" onclick="location.href = '../export/listProduct'">
+                Tiếp tục mua hàng
+            </button>
         </div>
 
     </body>

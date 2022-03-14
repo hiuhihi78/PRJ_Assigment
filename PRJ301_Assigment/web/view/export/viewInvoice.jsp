@@ -45,10 +45,10 @@
             <h4><b>Sản phẩm:</b></h4>
             <table class="table table-bordered table-hover" style="font-size: 20px;">
                 <tr style="background-color: #07A0C7">
-                    <th>Name</th>
-                    <th>Quantity</th>
-                    <th>Discout</th>
-                    <th>Sell Price</th>
+                    <th>Tên sản phẩn</th>
+                    <th>Số lượng</th>
+                    <th>Giảm giá(%)</th>
+                    <th>Giá bán</th>
                 </tr>
                 <c:forEach items="${sessionScope.cart.getOrder_Products()}" var="p">
                     <tr>

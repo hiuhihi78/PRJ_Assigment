@@ -109,6 +109,7 @@ public class AccountDBcontext extends DBContext {
                 account_Groups.add(ag);
             }
             account.setGroups(account_Groups);
+            connection.commit();
 
             return account;
         } catch (SQLException ex) {
@@ -130,22 +131,54 @@ public class AccountDBcontext extends DBContext {
 
     public void insertAccount(Account account) {
         try {
-        String query = "INSERT INTO [Account]\n"
-                + "           ([username]\n"
-                + "           ,[password]\n"
-                + "           ,[displayname])\n"
-                + "     VALUES\n"
-                + "           (?\n"
-                + "           ,?\n"
-                + "           ,?)";
-        
+            //insert and set accout is seller
+            connection.setAutoCommit(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            //insert new record in Account
+            String query = "INSERT INTO [Account]\n"
+                    + "           ([username]\n"
+                    + "           ,[password]\n"
+                    + "           ,[displayname])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?\n"
+                    + "           ,?)";
+
             PreparedStatement ps = connection.prepareStatement(query);
             ps.setString(1, account.getUsername());
             ps.setString(2, account.getPassword());
             ps.setString(3, account.getDisplayname());
             ps.executeUpdate();
+
+            // insert recoed in Account_Group table
+            String sql_addAccGroup = "INSERT INTO [Account_Group]\n"
+                    + "           ([username]\n"
+                    + "           ,[gid])\n"
+                    + "     VALUES\n"
+                    + "           (?\n"
+                    + "           ,?)";
+            PreparedStatement ps__addAccGroup = connection.prepareStatement(sql_addAccGroup);
+            ps__addAccGroup.setString(1, account.getUsername());
+            ps__addAccGroup.setInt(2, 3); // 3 - seller 
+            ps__addAccGroup.executeUpdate();
+
+            connection.commit();
         } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
             Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -267,6 +300,25 @@ public class AccountDBcontext extends DBContext {
         s[0] = "1";
         s[1] = "2";
         db.updateAccount_Group("test2", s);
+    }
+
+    public boolean checkAccountExisted(String username) {
+        String sql = "SELECT [username]\n"
+                + "      ,[password]\n"
+                + "      ,[displayname]\n"
+                + "  FROM [Account]\n"
+                + "where username = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return true;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountDBcontext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
     }
 
 }

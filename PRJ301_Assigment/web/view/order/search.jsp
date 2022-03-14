@@ -20,7 +20,7 @@
               crossorigin="anonymous">
         <link href="../css/export/viewInvoice.css" rel="stylesheet" type="text/css"/>
         <link href="../css/header.css" rel="stylesheet" type="text/css"/>
-        <!--<link href="../css/order/search.css" rel="stylesheet" type="text/css"/>-->
+        <link href="../css/order/search.css" rel="stylesheet" type="text/css"/>
     </head>
     <body style="background-color: #efecec;">
 
@@ -35,21 +35,20 @@
         </div>
 
         <div class="row">
-            <div class="col-md-2"></div>
-            <div class="col-md-8">
-                <form action="search" >
-
-                    <b id="orderId">Mã số hóa đơn:</b> 
+            <div class="col-md-4"></div>
+            <div class="col-md-5">
+                <form id="form" action="search" >
+                    <b id="orderId">Mã số hóa đơn: </b> 
                     <input class="input" type="number" name="orderID" value="${param.orderID}">
                     <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#advantageSearch">
                         <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Nâng cao
                     </button>
-                    
+
                     <input type="submit" class="btn btn-info" value="Tìm kiếm">
-                    
+
                     <div id="advantageSearch" class="collapse">
                         <p>
-                            <b id="cId">Mã số khách hàng:</b> 
+                            <b id="cId">Mã số khách hàng: </b> 
                             <input class="input" type="number" name="customerID" value="${param.customerID}">
                         </p>
                         <p>
@@ -67,10 +66,8 @@
                             <input class="input" type="text" name="username" value="${param.username}">
                         </p>
                     </div>
-                    
                 </form>
             </div>
-            <div class="col-md-2"></div>
         </div>
 
         <div class="row" style="margin-top: 30px;">
