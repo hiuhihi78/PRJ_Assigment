@@ -5,6 +5,7 @@
  */
 package controller.export;
 
+import controller.authentication.BaseAuthentication;
 import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -26,7 +27,7 @@ import model.Product;
  *
  * @author Admin
  */
-public class ViewInvoiceServlert extends HttpServlet {
+public class ViewInvoiceServlert extends BaseAuthentication {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -37,7 +38,7 @@ public class ViewInvoiceServlert extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
     }
@@ -51,7 +52,7 @@ public class ViewInvoiceServlert extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Orders order = (Orders) session.getAttribute("cart");

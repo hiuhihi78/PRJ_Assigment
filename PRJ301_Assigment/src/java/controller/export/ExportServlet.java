@@ -5,6 +5,7 @@
  */
 package controller.export;
 
+import controller.authentication.BaseAuthentication;
 import dal.CustomerDBContext;
 import dal.ProductDBContext;
 import java.io.IOException;

@@ -84,7 +84,7 @@ public class CheckOutOrder extends HttpServlet {
 
         request.getSession().removeAttribute("cart");
         request.getSession().removeAttribute("products");
-        request.getRequestDispatcher("../view/export/exportSuccessfully.jsp").forward(request, response);
+        request.getRequestDispatcher("../NewServlet").forward(request, response);
     }
 
     /**

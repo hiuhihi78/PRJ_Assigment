@@ -35,7 +35,7 @@ public class DeleteAccountServlet extends BaseAuthentication {
         
         AccountDBcontext accountDB = new AccountDBcontext();
         accountDB.deleteAccount(username);
-        request.getRequestDispatcher("search").forward(request, response);
+        response.sendRedirect("search");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

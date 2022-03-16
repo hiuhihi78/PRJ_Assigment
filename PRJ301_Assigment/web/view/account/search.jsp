@@ -43,7 +43,7 @@
                         <td>${a.displayname}</td>
                         <c:if test="${a.username !='admin'}">
                             <td><a href="decentralization?username=${a.username}">Phan quyen</a></td>
-                            <td><a href="delete?id=${a.username}">Delete</a></td>
+<!--                            <td><a href="delete?id=${a.username}">Delete</a></td>-->
                         </c:if>
                         <c:if test="${a.username=='admin'}">
                             <td></td>

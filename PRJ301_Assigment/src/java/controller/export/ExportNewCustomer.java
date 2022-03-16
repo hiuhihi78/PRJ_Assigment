@@ -5,6 +5,7 @@
  */
 package controller.export;
 
+import controller.authentication.BaseAuthentication;
 import dal.CustomerDBContext;
 import dal.PersonDBContext;
 import dal.ProductDBContext;
@@ -25,7 +26,7 @@ import model.Product;
  *
  * @author Admin
  */
-public class ExportNewCustomer extends HttpServlet {
+public class ExportNewCustomer extends BaseAuthentication {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -36,7 +37,7 @@ public class ExportNewCustomer extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         ProductDBContext productDB = new ProductDBContext();
         ArrayList<Product> products = productDB.getProducts();
@@ -53,7 +54,7 @@ public class ExportNewCustomer extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
         String id = request.getParameter("id");

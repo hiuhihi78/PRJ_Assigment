@@ -35,27 +35,32 @@
                     <form action="login" method="POST" class="was-validated">
                         <div class="form-group">
                             <label for="username">Tên đăng nhập: </label>
-                            <input type="text" class="form-control" placeholder="Nhập tên đăng nhập" 
-                                   name="username" value="${param.username}" required>
+                            <input  type="text" onchange="checkInput();" class="form-control"  placeholder="Nhập tên đăng nhập" 
+                                    name="username" value="${param.username}" required>
                         </div>
 
                         <div class="form-group">
                             <label for="username">Mật khẩu: </label>
-                            <input type="password" class="form-control" id="uname" placeholder="Nhập mật khẩu" 
+                            <input type="password" onchange="checkInput();"  class="form-control" id="uname" placeholder="Nhập mật khẩu" 
                                    name="password"  value="${param.password}" required>
 
                         </div>
 
                         <c:if test="${requestScope.message!=null}">
-                            <div class="alert alert-danger ">
+                            <div id="message" class="alert alert-danger ">
                                 Tên đăng nhập hoặc mật khẩu không đúng!
                             </div>
                         </c:if>
-                            <a href="register" class="btn btn-info" role="button">Đăng kí</a>
+                        <a href="register" class="btn btn-info" role="button">Đăng ký</a>
                         <input class="btn btn-success" type="submit" value="Đăng nhập">
                     </form>
                 </div>
             </div>
         </div>
+        <script>
+            function checkInput(){
+                document.getElementById('message').style = 'display : none';
+            }
+        </script>
     </body>
 </html>

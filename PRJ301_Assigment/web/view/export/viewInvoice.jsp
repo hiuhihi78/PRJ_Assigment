@@ -21,6 +21,9 @@
               crossorigin="anonymous">
         <link href="../css/export/viewInvoice.css" rel="stylesheet" type="text/css"/>
         <link href="../css/header.css" rel="stylesheet" type="text/css"/>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <%
         Orders order = (Orders) request.getSession().getAttribute("cart");
@@ -65,8 +68,6 @@
             <form action="../cart/checkout" method="POST">
                 <input class="btn btn-danger" id="submit" type="submit" value="Chấp nhận"/>
             </form>
-            
-           
         </div>
     </body>
 </html>

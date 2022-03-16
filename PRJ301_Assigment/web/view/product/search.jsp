@@ -35,7 +35,7 @@
     </head>
     <body>
         <form action="search" method="Get">
-            <input type="text" name="pname" value="${param.pname}">
+            <input type="text" onchange="doSubmit();" name="pname" value="${param.pname}">
             <input type="submit" value="Searh">
         </form>
         <table border="1">

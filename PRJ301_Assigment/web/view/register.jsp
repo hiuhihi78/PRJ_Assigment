@@ -17,7 +17,7 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
         <style>
             #form{
-                border: 1px solid black;
+                border: 1px solid gray;
                 border-radius: 10px;
                 padding-bottom: 20px;
                 margin-top: 100px;
@@ -31,11 +31,11 @@
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4" id="form">
-                    <h2>Đăng kí</h2>
+                    <h2>Đăng ký</h2>
                     <form action="register" method="POST" class="was-validated">
                         <div class="form-group">
                             <label for="username">Tên đang nhập:</label>
-                            <input type="text" class="form-control" placeholder="Nhập tên đang nhập" 
+                            <input type="text" onchange="checkInput();" class="form-control" placeholder="Nhập tên đang nhập" 
                                    name="username" value="${param.username}" required>
                             <div class="valid-feedback">Hợp lệ</div>
                             <div class="invalid-feedback">Hãy điền đầy đủ thông tin</div>
@@ -43,7 +43,7 @@
 
                         <div class="form-group">
                             <label for="password">Mật khẩu:</label>
-                            <input type="password" class="form-control" placeholder="Nhập mật khẩu" 
+                            <input type="password" onchange="checkInput();" class="form-control" placeholder="Nhập mật khẩu" 
                                    name="password" value="${param.password}" required>
                             <div class="valid-feedback">Hợp lệ</div>
                             <div class="invalid-feedback">Hãy điền đầy đủ thông tin</div>
@@ -51,13 +51,13 @@
 
                         <div class="form-group">
                             <label for="displayname">Tên người dùng:</label>
-                            <input type="text" class="form-control" placeholder="Nhập tên người dùng" 
-                                   name="displayname" value="${param.password}" required>
+                            <input type="text" onchange="checkInput();" class="form-control" placeholder="Nhập tên người dùng" 
+                                   name="displayname" value="${param.displayname}" required>
                             <div class="valid-feedback">Hợp lệ</div>
                             <div class="invalid-feedback">Hãy điền đầy đủ thông tin</div>
                         </div>
                         <c:if test="${requestScope.alter == 'failed' }">
-                            <div class="alert alert-danger">
+                            <div id="alter" class="alert alert-danger">
                                 Tên đăng nhập đã tồn tại!
                             </div>
                             <i style="color:  red"></i>
@@ -69,11 +69,16 @@
                             </div>
                         </c:if>
                         <a href="login" class="btn btn-info" role="button" >Quay lại</a>
-                        <input type="submit" class="btn btn-success" value="Đăng kí">
+                        <input type="submit" class="btn btn-success" value="Đăng ký">
                     </form>
                 </div>
                 <div  class="col-md-4"></div>
             </div>
         </div>
+        <script>
+            function checkInput() {
+                document.getElementById('alter').style = 'display : none';
+            }
+        </script>
     </body>
 </html>

@@ -21,6 +21,7 @@
         <link href="../css/export/viewInvoice.css" rel="stylesheet" type="text/css"/>
         <link href="../css/header.css" rel="stylesheet" type="text/css"/>
         <link href="../css/order/search.css" rel="stylesheet" type="text/css"/>
+        <!--<script src="../js/paggerNomal.js" type="text/javascript"></script>-->
     </head>
     <body style="background-color: #efecec;">
 
@@ -101,11 +102,16 @@
             </div>
         </div>
 
-        <div id="pagger"></div>
-        <script>
+<!--        <div >
+            <input type="text" onchange="location.href='search?page=' + ${requestScope.page}" 
+                   id="paggerNomal" name="page" value="${requestScope.page}">/${requestScope.totaPage}
+        </div>-->
+<h1>${requestScope.totalPage}</h1>
+    <div id="pagger"></div>
+    <script>
             if (${requestScope.totalPage} > 2) {
                 createPage('pagger', ${requestScope.page}, 2,${requestScope.totalPage});
             }
-        </script>
-    </body>
+    </script>
+</body>
 </html>

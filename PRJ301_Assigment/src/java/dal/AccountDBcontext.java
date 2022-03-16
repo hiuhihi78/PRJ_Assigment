@@ -296,10 +296,11 @@ public class AccountDBcontext extends DBContext {
 
     public static void main(String[] args) {
         AccountDBcontext db = new AccountDBcontext();
-        String[] s = new String[2];
-        s[0] = "1";
-        s[1] = "2";
-        db.updateAccount_Group("test2", s);
+//        String[] s = new String[2];
+//        s[0] = "1";
+//        s[1] = "2";
+//        db.updateAccount_Group("test2", s);
+        db.deleteAccount("hieuhihi78");
     }
 
     public boolean checkAccountExisted(String username) {

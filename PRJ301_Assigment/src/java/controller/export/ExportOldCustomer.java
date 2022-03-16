@@ -5,6 +5,7 @@
  */
 package controller.export;
 
+import controller.authentication.BaseAuthentication;
 import dal.CustomerDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,7 +20,7 @@ import model.Customer;
  *
  * @author Admin
  */
-public class ExportOldCustomer extends HttpServlet {
+public class ExportOldCustomer extends BaseAuthentication {
 
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -30,7 +31,7 @@ public class ExportOldCustomer extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void processGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.getRequestDispatcher("../view/export/oldCustomer.jsp").forward(request, response);
     }
@@ -44,7 +45,7 @@ public class ExportOldCustomer extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void processPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("id").isEmpty()) {
             request.setAttribute("msgId", "Mã CMTND không được trống!");
