@@ -92,6 +92,18 @@
         <servlet-name>RegisterServlet</servlet-name>
         <servlet-class>controller.authentication.RegisterServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchCustomerServlet</servlet-name>
+        <servlet-class>controller.customer.SearchCustomerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailCustomerServlet</servlet-name>
+        <servlet-class>controller.customer.DetailCustomerServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCustomerServlet</servlet-name>
+        <servlet-class>controller.customer.UpdateCustomerServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SearchProductServlet</servlet-name>
         <url-pattern>/product/search</url-pattern>
@@ -183,6 +195,18 @@
     <servlet-mapping>
         <servlet-name>RegisterServlet</servlet-name>
         <url-pattern>/register</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchCustomerServlet</servlet-name>
+        <url-pattern>/customer/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailCustomerServlet</servlet-name>
+        <url-pattern>/customer/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCustomerServlet</servlet-name>
+        <url-pattern>/customer/update</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

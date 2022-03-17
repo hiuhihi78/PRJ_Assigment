@@ -17,6 +17,22 @@ public class Customer {
     private Person person;
    
     private ArrayList<Orders> orders = new ArrayList<>();
+    
+    public float getTotalAmount(){
+        float result = 0;
+        for(Orders order : this.getOrders()){
+            result = result + order.getAmount();
+        }
+        return result;
+    }
+    
+    public float getTotalPaid(){
+        float result = 0;
+        for(Orders order : this.getOrders()){
+            result = result + order.getPaid();
+        }
+        return result;
+    }
 
     public ArrayList<Orders> getOrders() {
         return orders;

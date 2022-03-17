@@ -87,8 +87,8 @@ public class Orders {
 
     @Override
     public String toString() {
-        return "Orders{" + "id=" + id + ", customer=" + customer.toString()
-                + ", date=" + date + ", paid=" + paid + ", amount=" + amount
+        return "Orders{" + "id=" + id + ", "
+                + ", date=" + date.toString() + ", paid=" + paid + ", amount=" + amount
                 + ", seller=" + seller.getUsername() + '}';
     }
 

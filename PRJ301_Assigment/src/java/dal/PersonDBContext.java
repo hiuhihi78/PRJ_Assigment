@@ -34,7 +34,7 @@ public class PersonDBContext extends DBContext {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-             while (rs.next()) {
+            while (rs.next()) {
                 Person c = new Person();
                 c.setId(rs.getInt(1));
                 c.setName(rs.getString(2));
@@ -78,7 +78,7 @@ public class PersonDBContext extends DBContext {
             Logger.getLogger(PersonDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public static void main(String[] args) {
         PersonDBContext db = new PersonDBContext();
         Person person = new Person();
@@ -89,6 +89,29 @@ public class PersonDBContext extends DBContext {
         person.setPhone("0333");
         person.setAddress("ada");
         db.insertPerson(person);
+
+    }
+
+    public void updatePerson(Person person) {
+        try {
+            String sql = "UPDATE [Person]\n"
+                    + "   SET [name] = ?\n"
+                    + "      ,[dob] = ?\n"
+                    + "      ,[gender] = ?\n"
+                    + "      ,[phone] = ?\n"
+                    + "      ,[address] = ?\n"
+                    + " WHERE id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, person.getName());
+            ps.setDate(2, person.getDob());
+            ps.setBoolean(3, person.isGender());
+            ps.setString(4, person.getPhone());
+            ps.setString(5, person.getAddress());
+            ps.setInt(6, person.getId());
+            ps.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(PersonDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }
 

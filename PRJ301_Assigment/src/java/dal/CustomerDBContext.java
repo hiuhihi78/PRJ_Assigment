@@ -8,11 +8,16 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Account;
 import model.Customer;
+import model.Order_Product;
+import model.Orders;
 import model.Person;
+import model.Product;
 
 /**
  *
@@ -44,6 +49,62 @@ public class CustomerDBContext extends DBContext {
                 p.setAddress(rs.getString(6));
                 c.setPerson(p);
                 customers.add(c);
+            }
+
+            // get Order for each customer
+            for (Customer c : customers) {
+                ArrayList<Orders> orders = new ArrayList<>();
+                String sql_getOrder = "	select Orders.orderID\n"
+                        + "	from Customer join Orders on Customer.personID = Orders.customerID\n"
+                        + "	where Customer.personID = ?";
+                PreparedStatement ps_getOrder = connection.prepareStatement(sql_getOrder);
+                ps_getOrder.setInt(1, c.getPerson().getId());
+                ResultSet rs_getOrder = ps_getOrder.executeQuery();
+                while (rs_getOrder.next()) {
+                    Orders o = new Orders();
+                    o.setId(rs_getOrder.getInt(1));
+                    orders.add(o);
+                }
+                c.getOrders().addAll(orders);
+            }
+
+            for (Customer customer : customers) {
+                String sql_get_OrederDetail = "select \n"
+                        + "		Orders.orderID, Orders.date, Orders.amout, Orders.paid, Orders.seller, Account.displayname,\n"
+                        + "		Product.id, Product.name, Order_Product.quantity, Order_Product.discount, Order_Product.sellprice\n"
+                        + "from  Customer join Orders on Customer.personID = Orders.customerID\n"
+                        + "	join Order_Product on Orders.orderID = Order_Product.orderID\n"
+                        + "	join Product on Order_Product.productID = Product.id\n"
+                        + "	join Account on Orders.seller = Account.username\n"
+                        + "	where Customer.personID = ?";
+                PreparedStatement ps_get_OrederDetail = connection.prepareStatement(sql_get_OrederDetail);
+                ps_get_OrederDetail.setInt(1, customer.getPerson().getId());
+                ResultSet rs_get_Orders = ps_get_OrederDetail.executeQuery();
+                while (rs_get_Orders.next()) {
+                    for (Orders order : customer.getOrders()) {
+                        if (order.getId() == (rs_get_Orders.getInt(1))) {
+                            order.setDate(rs_get_Orders.getTimestamp(2));
+                            order.setAmount(rs_get_Orders.getFloat(3));
+                            order.setPaid(rs_get_Orders.getFloat(4));
+                            Account seller = new Account();
+                            seller.setUsername(rs_get_Orders.getString(5));
+                            seller.setDisplayname(rs_get_Orders.getString(6));
+                            order.setSeller(seller);
+
+                            Order_Product orderDetail = new Order_Product();
+                            Product product = new Product();
+                            product.setId(rs_get_Orders.getInt(7));
+                            product.setName(rs_get_Orders.getString(8));
+                            orderDetail.setProduct(product);
+                            orderDetail.setQuantity(rs_get_Orders.getFloat(9));
+                            orderDetail.setDiscount(rs_get_Orders.getFloat(10));
+                            orderDetail.setSellPrice(rs_get_Orders.getFloat(11));
+                            order.getOrder_Products().add(orderDetail);
+                        }
+                    }
+
+                }
+
             }
 
             connection.commit();
@@ -81,6 +142,13 @@ public class CustomerDBContext extends DBContext {
     }
 
     public Customer getCustomer(int id) {
+
+        try {
+            connection.setAutoCommit(false);
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Customer customer = new Customer();
         String sql = "  select id, name, dob, gender, phone , address\n"
                 + "  from  Customer join Person on Customer.personID = Person.id\n"
                 + "  where id = ?";
@@ -88,8 +156,8 @@ public class CustomerDBContext extends DBContext {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
-                Customer c = new Customer();
+            if (rs.next()) {
+
                 Person p = new Person();
                 p.setId(id);
                 p.setName(rs.getString(2));
@@ -97,19 +165,83 @@ public class CustomerDBContext extends DBContext {
                 p.setGender(rs.getBoolean(4));
                 p.setPhone(rs.getString(5));
                 p.setAddress(rs.getString(6));
-                c.setPerson(p);
-                return c;
+                customer.setPerson(p);
             }
+
+            String sql_getOrder = "	select Orders.orderID\n"
+                    + "	from Customer join Orders on Customer.personID = Orders.customerID\n"
+                    + "	where Customer.personID = ?";
+            PreparedStatement ps_getOrder = connection.prepareStatement(sql_getOrder);
+            ps_getOrder.setInt(1, customer.getPerson().getId());
+            ResultSet rs_getOrder = ps_getOrder.executeQuery();
+            while (rs_getOrder.next()) {
+                Orders o = new Orders();
+                o.setId(rs_getOrder.getInt(1));
+                customer.getOrders().add(o);
+            }
+
+            String sql_get_OrederDetail = "select \n"
+                    + "		Orders.orderID, Orders.date, Orders.amout, Orders.paid, Orders.seller, Account.displayname,\n"
+                    + "		Product.id, Product.name, Order_Product.quantity, Order_Product.discount, Order_Product.sellprice\n"
+                    + "from  Customer join Orders on Customer.personID = Orders.customerID\n"
+                    + "	join Order_Product on Orders.orderID = Order_Product.orderID\n"
+                    + "	join Product on Order_Product.productID = Product.id\n"
+                    + "	join Account on Orders.seller = Account.username\n"
+                    + "	where Customer.personID = ?";
+            PreparedStatement ps_get_OrederDetail = connection.prepareStatement(sql_get_OrederDetail);
+            ps_get_OrederDetail.setInt(1, customer.getPerson().getId());
+            ResultSet rs_get_Orders = ps_get_OrederDetail.executeQuery();
+            while (rs_get_Orders.next()) {
+                for (Orders order : customer.getOrders()) {
+                    if (order.getId() == (rs_get_Orders.getInt(1))) {
+                        order.setDate(rs_get_Orders.getTimestamp(2));
+                        order.setAmount(rs_get_Orders.getFloat(3));
+                        order.setPaid(rs_get_Orders.getFloat(4));
+                        Account seller = new Account();
+                        seller.setUsername(rs_get_Orders.getString(5));
+                        seller.setDisplayname(rs_get_Orders.getString(6));
+                        order.setSeller(seller);
+
+                        Order_Product orderDetail = new Order_Product();
+                        Product product = new Product();
+                        product.setId(rs_get_Orders.getInt(7));
+                        product.setName(rs_get_Orders.getString(8));
+                        orderDetail.setProduct(product);
+                        orderDetail.setQuantity(rs_get_Orders.getFloat(9));
+                        orderDetail.setDiscount(rs_get_Orders.getFloat(10));
+                        orderDetail.setSellPrice(rs_get_Orders.getFloat(11));
+                        order.getOrder_Products().add(orderDetail);
+                    }
+                }
+
+            }
+            connection.commit();
         } catch (SQLException ex) {
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
             Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
-        return null;
+        return customer;
     }
 
     public static void main(String[] args) {
         CustomerDBContext db = new CustomerDBContext();
-        for (Customer c : db.getCustomers()) {
-            System.out.println(c);
+//        for (Customer c : db.getCustomers()) {
+//            for (Orders op : c.getOrders()) {
+//                System.out.println(op);
+//            }
+//        }
+        for(Orders o : db.getCustomer(9).getOrders()){
+            System.out.println(o);
         }
     }
 

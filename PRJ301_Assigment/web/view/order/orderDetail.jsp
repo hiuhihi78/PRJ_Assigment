@@ -62,7 +62,7 @@
             </table>
             <h4><b>Tổng tiền cần phải trả:</b> ${requestScope.order.amount}</h4>
             <h4><b>Số tiền đã trả:</b> ${requestScope.order.paid}</h4>
-            <button class="btn btn-info" id="previous" onclick="location.href='search';">Quay lại</button>
+            <button class="btn btn-info" id="previous" onclick="history.go(-1);">Quay lại</button>
            
         </div>
     </body>

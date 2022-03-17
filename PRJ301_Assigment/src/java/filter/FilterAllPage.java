@@ -31,7 +31,8 @@ import model.Account;
             "ExportNewCustomer", "ExportServlet", "DecentralizationAccountServlet",
             "DeleteAccountServlet", "SearchAccountServlet", 
             "DeleteProductServlet", "HomeServlet", "UpdateProductServlet", "InsertProductServlet",
-            "SearchProductServlet"})
+            "SearchProductServlet", "DetailCustomerServlet", "SearchCustomerServlet", 
+            "UpdateCustomerServlet" })
 public class FilterAllPage implements Filter {
     
     private static final boolean debug = true;

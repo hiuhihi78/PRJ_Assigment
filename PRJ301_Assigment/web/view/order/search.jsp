@@ -94,7 +94,7 @@
                             <td>${o.amount}</td>
                             <td>${o.paid}</td>
                             <td>${o.seller.displayname}</td>
-                            <td><a href="detail?orderId=${o.id}">Chi tiết</a></td>
+                            <td><a href="detail?orderID=${o.id}">Chi tiết</a></td>
                         </tr>
                     </c:forEach>
                 </table>

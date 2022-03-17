@@ -72,7 +72,7 @@ Author     : Admin
                     <button onclick="window.location = 'product/search'">Sản Phẩm</button>
                 </div>
                 <div class="col-lg-4 navigation">
-                    <button onclick="doNavigation('#');">Khách hàng</button>
+                    <button onclick="doNavigation('customer/search');">Khách hàng</button>
                 </div>
                 <div class="col-lg-4 navigation">
                     <button onclick="doNavigation('#');">Nhà cung cấp</button>
