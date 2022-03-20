@@ -106,7 +106,6 @@
             <input type="text" onchange="location.href='search?page=' + ${requestScope.page}" 
                    id="paggerNomal" name="page" value="${requestScope.page}">/${requestScope.totaPage}
         </div>-->
-<h1>${requestScope.totalPage}</h1>
     <div id="pagger"></div>
     <script>
             if (${requestScope.totalPage} > 2) {

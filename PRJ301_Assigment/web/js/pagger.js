@@ -26,7 +26,7 @@ if (pageindex - gap > 1) {
     }
 
     if (pageindex + gap < totalPage) {
-        container.innerHTML += '<a href="search?page="' + totalPage + '">Last</a>';
+        container.innerHTML += '<a href="search?page=' + totalPage + '">' + 'Last' + '</a>';
     }
 
 }

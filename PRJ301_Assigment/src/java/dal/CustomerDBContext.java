@@ -240,9 +240,35 @@ public class CustomerDBContext extends DBContext {
 //                System.out.println(op);
 //            }
 //        }
-        for(Orders o : db.getCustomer(9).getOrders()){
-            System.out.println(o);
+        System.out.println(db.getCustomer(0));
+    }
+
+    public Customer getCustomerById(int id) {
+        Customer customer = new Customer();
+        try {
+            String sql = "  select id, name, dob, gender, phone , address\n"
+                    + "  from  Customer join Person on Customer.personID = Person.id\n"
+                    + "  where id = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+
+                Person p = new Person();
+                p.setId(id);
+                p.setName(rs.getString(2));
+                p.setDob(rs.getDate(3));
+                p.setGender(rs.getBoolean(4));
+                p.setPhone(rs.getString(5));
+                p.setAddress(rs.getString(6));
+                customer.setPerson(p);
+                        return customer;
+
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CustomerDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
+        return null;
     }
 
 }

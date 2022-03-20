@@ -36,11 +36,16 @@ public class SearchCustomerServlet extends BaseAuthentication {
         String raw_customerId = request.getParameter("id");
         ArrayList<Customer> customers = new ArrayList<>();
         CustomerDBContext db = new CustomerDBContext();
-        if(raw_customerId == null || raw_customerId.isEmpty()){
+        if (raw_customerId == null || raw_customerId.isEmpty()) {
             customers.addAll(db.getCustomers());
-        }else{
+        } else {
             int id = Integer.parseInt(raw_customerId);
-            customers.add(db.getCustomer(id));
+            Customer customer = db.getCustomerById(id);
+            if (customer == null) {
+                customers = null;
+            } else {
+                customers.add(db.getCustomerById(id));
+            }
         }
         request.setAttribute("customers", customers);
         request.getRequestDispatcher("../view/customer/search.jsp").forward(request, response);

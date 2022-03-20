@@ -53,7 +53,7 @@ public class ExportOldCustomer extends BaseAuthentication {
         }
         int id = Integer.parseInt(request.getParameter("id"));
         CustomerDBContext customerDB = new CustomerDBContext();
-        Customer customer = customerDB.getCustomer(id);
+        Customer customer = customerDB.getCustomerById(id);
         if (customer == null) {
             request.setAttribute("alert", "Mã khách hàng không tồn tại!");
             request.getRequestDispatcher("../view/export/oldCustomer.jsp").forward(request, response);

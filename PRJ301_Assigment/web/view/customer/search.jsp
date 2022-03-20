@@ -58,18 +58,20 @@
                         <th>Số ĐT</th>
                         <th></th>
                     </tr>
-                    <c:forEach items="${requestScope.customers}" var="customer">
-                        <tr>
-                            <td>${customer.person.id}</td>
-                            <td>${customer.person.name}</td>
-                            <td>${customer.person.gender == true ? "Nam" : "Nữ"}</td>
-                            <td>${customer.person.dob}</td>
-                            <td>${customer.person.address}</td>
-                            <td>${customer.person.phone}</td>
-                            <td><a href="update?id=${customer.person.id}">Chỉnh sửa</a></td>
-                            <td><a href="detail?id=${customer.person.id}">Chi tiết</a></td>
-                        </tr>
-                    </c:forEach>
+                    <c:if test="${requestScope.customers != null}">
+                        <c:forEach items="${requestScope.customers}" var="customer">
+                            <tr>
+                                <td>${customer.person.id}</td>
+                                <td>${customer.person.name}</td>
+                                <td>${customer.person.gender == true ? "Nam" : "Nữ"}</td>
+                                <td>${customer.person.dob}</td>
+                                <td>${customer.person.address}</td>
+                                <td>${customer.person.phone}</td>
+                                <td><a href="update?id=${customer.person.id}">Chỉnh sửa</a></td>
+                                <td><a href="detail?id=${customer.person.id}">Chi tiết</a></td>
+                            </tr>
+                        </c:forEach>
+                    </c:if>
                 </table>
                 <div class="col-md-2"></div>
             </div>
