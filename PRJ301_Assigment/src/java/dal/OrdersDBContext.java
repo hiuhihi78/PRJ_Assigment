@@ -30,7 +30,13 @@ import model.Product;
  */
 public class OrdersDBContext extends DBContext {
 
-    public void insertOrder(Orders order, ArrayList<Product> products) {
+    public int insertOrder(Orders order, ArrayList<Product> products) {
+        
+        if(order == null || products == null ||products.size() == 0){
+            return -1;
+        }
+        
+        int orderId = 0;
         try {
             connection.setAutoCommit(false);
         } catch (SQLException ex) {
@@ -59,7 +65,7 @@ public class OrdersDBContext extends DBContext {
             ps_add_order.executeUpdate();
 
             // get order id
-            int orderId = 0;
+            
             String sql_getOrderId = "Select @@IDENTITY as OrderID";
             PreparedStatement ps_getOrderId = connection.prepareStatement(sql_getOrderId);
             ResultSet rs_getOrderId = ps_getOrderId.executeQuery();
@@ -103,6 +109,7 @@ public class OrdersDBContext extends DBContext {
             }
 
             connection.commit();
+            return orderId;
         } catch (SQLException ex) {
             try {
                 connection.rollback();
@@ -117,6 +124,7 @@ public class OrdersDBContext extends DBContext {
                 Logger.getLogger(OrdersDBContext.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        return -1;
     }
 
     public ArrayList<Orders> getOrders(int pagesize, int pageindex) {

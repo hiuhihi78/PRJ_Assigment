@@ -45,7 +45,7 @@
                         <span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span> Nâng cao
                     </button>
 
-                    <input type="submit" class="btn btn-info" value="Tìm kiếm">
+                    <input type="submit" class="btn btn-success" value="Tìm kiếm">
 
                     <div id="advantageSearch" class="collapse">
                         <p>

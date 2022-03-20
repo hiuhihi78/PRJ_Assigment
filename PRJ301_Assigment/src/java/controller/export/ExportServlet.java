@@ -35,12 +35,19 @@ public class ExportServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // remove info of befor customer
+        request.getSession().removeAttribute("cart");
+        request.getSession().removeAttribute("products");
+        request.getSession().removeAttribute("customer");
+        //
+
         ProductDBContext productDB = new ProductDBContext();
         ArrayList<Product> products = productDB.getProducts();
-        
+
         CustomerDBContext customerDB = new CustomerDBContext();
         ArrayList<Customer> customers = customerDB.getCustomers();
-        
+
         request.setAttribute("products", products);
         request.setAttribute("customers", customers);
         request.getRequestDispatcher("view/export/choseCustomer.jsp").forward(request, response);
@@ -58,9 +65,9 @@ public class ExportServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         String customerType = request.getParameter("customerType");
-        if(customerType.equals("new")){
+        if (customerType.equals("new")) {
             response.sendRedirect("export/newCustomer");
-        }else{
+        } else {
             response.sendRedirect("export/oldCustomer");
         }
     }

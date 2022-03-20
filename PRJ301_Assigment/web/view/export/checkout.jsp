@@ -68,7 +68,7 @@
                     <%}%>
                 </table>
                 </table>
-                <p>So tien da nhan: 
+                <p>Số tiền đã nhận: 
                     <input  style="width: 200px; " type="number" min="0" value="0" name="paid">
                 </p>
                 <c:if test="${requestScope.alter!=null}">

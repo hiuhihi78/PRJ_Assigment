@@ -104,6 +104,10 @@
         <servlet-name>UpdateCustomerServlet</servlet-name>
         <servlet-class>controller.customer.UpdateCustomerServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MakeInvoiceServlet</servlet-name>
+        <servlet-class>controller.export.MakeInvoiceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>SearchProductServlet</servlet-name>
         <url-pattern>/product/search</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>UpdateCustomerServlet</servlet-name>
         <url-pattern>/customer/update</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MakeInvoiceServlet</servlet-name>
+        <url-pattern>/export/makeInvoice</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

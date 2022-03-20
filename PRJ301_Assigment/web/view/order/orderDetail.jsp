@@ -39,17 +39,20 @@
 
         <div class="container" >
             <h4><b>Mã số hóa đơn:</b> ${requestScope.order.customer.person.id}</h4>
-            <h4><b>Mã số khách hàng:</b> ${requestScope.order.customer.person.id}</h4>
+            <h4><b>Mã số khách hàng:</b> ${requestScope.order.customer.person.id}
+                <a href="../customer/detail?id=${requestScope.order.customer.person.id}">Chi tiết khách hàng</a>
+            </h4>
             <h4><b>Tên khách hàng:</b> ${requestScope.order.customer.person.name}</h4>
             <h4><b>Thời gian mua hàng: </b> ${requestScope.order.date}</h4>
             <h4><b>Người bán: </b>${requestScope.order.seller.displayname}</h4>
             <h4><b>Sản phẩm:</b></h4>
             <table class="table table-bordered table-hover" style="font-size: 20px;">
                 <tr style="background-color: #07A0C7">
-                    <th>Name</th>
-                    <th>Quantity</th>
-                    <th>Discout</th>
-                    <th>Sell Price</th>
+                    <th>Tên sản phẩn</th>
+                    <th>Số lượng</th>
+                    <th>Giảm giá(%)</th>
+                    <th>Giá bán</th>
+                    <th>Thành tiền</th>
                 </tr>
                 <c:forEach items="${requestScope.order.getOrder_Products()}" var="p">
                     <tr>
@@ -57,6 +60,7 @@
                         <td>${p.quantity}</td>
                         <td>${p.discount}</td>
                         <td>${p.sellPrice}</td>
+                        <td>${(p.quantity * p.sellPrice) * (1 - p.discount/100)}</td>
                     </tr>
                 </c:forEach>
             </table>

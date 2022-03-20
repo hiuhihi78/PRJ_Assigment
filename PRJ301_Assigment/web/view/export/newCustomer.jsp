@@ -4,6 +4,8 @@
     Author     : Admin
 --%>
 
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,6 +22,11 @@
         <!--<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">-->
         <link href="../css/header.css" rel="stylesheet" type="text/css"/>
     </head>
+    <%
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("YYYY-MM-dd");
+        String currentDate = dateFormat.format(date);
+    %>
     <body>
         <div class="container-fluid ">
             <div class="row text-center header">
@@ -30,6 +37,7 @@
                 <h2 id="title">Nhập thông tin khách hàng</h2>
             </div>
         </div>
+        
         <div class="row">
             <div class="col-md-4 col-ms-4"></div>
 
@@ -44,11 +52,13 @@
                     </div>
                     <div class="form-group">
                         <label for="name">Họ và tên::</label>
-                        <input type="text"  class="form-control" name="name" value="${param.name}">
+                        <input type="text"  class="form-control" name="name"  value="${param.name}">
                     </div>
                     <div class="form-group">
-                        <label for="pwd">Ngày sinh: </label>
-                        <input type="date" class="form-control" name="dob" value="${param.dob}">
+                        <label for="dob">Ngày sinh: </label>
+                        <input type="date" class="form-control" name="dob" 
+                                min="1900-01-01" max="<%=currentDate%>"
+                               value="${param.dob}">
                     </div>
                     <div class="form-check-inline">
                         <label class="form-check-label">

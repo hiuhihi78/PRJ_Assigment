@@ -29,7 +29,7 @@
                     <i class="fa fa-home fa-2x" aria-hidden="true"></i>
                     <span style="font-weight: bold;">Home</span>
                 </a>    
-                <h2 id="title">Hóa đơn</h2>
+                <h2 id="title">Danh sách khách hàng</h2>
             </div>
         </div>
 
@@ -56,7 +56,6 @@
                         <th>Ngày sinh</th>
                         <th>Địa chỉ</th>
                         <th>Số ĐT</th>
-                        <th></th>
                         <th></th>
                     </tr>
                     <c:forEach items="${requestScope.customers}" var="customer">

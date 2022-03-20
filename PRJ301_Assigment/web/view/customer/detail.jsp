@@ -13,15 +13,26 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <link href="../css/bootstrap.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" 
+              integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+              crossorigin="anonymous">
+        <link href="../css/export/viewInvoice.css" rel="stylesheet" type="text/css"/>
+        <link href="../css/header.css" rel="stylesheet" type="text/css"/>
     </head>
+    <%
+        Orders order = (Orders) request.getSession().getAttribute("cart");
+    %>
     <body>
+
         <div class="container-fluid header">
             <div class="row text-center">
                 <a id="btn-home" class="btn btn-lg" href="../home">
                     <i class="fa fa-home fa-2x" aria-hidden="true"></i>
                     <span style="font-weight: bold;">Home</span>
                 </a>    
-                <h2 id="title"  >Kiem tra hoa don</h2>
+                <h1 id="title">Thông tin chi tiết khách hàng</h1>
             </div>
         </div>
 
@@ -53,8 +64,9 @@
                     </tr>
                 </c:forEach>
             </table>
-            <h4><b>Tổng hóa tiền đã trả:</b> ${requestScope.customer.getTotalPaid()}</h4>
-            <h4><b>Tổng hóa tiền tất cả hóa đơn:</b> ${requestScope.customer.getTotalAmount()}</h4>
+            <h4><b>Tổng tiền đã trả:</b> ${requestScope.customer.getTotalPaid()}</h4>
+            <h4><b>Tổng tiền tất cả hóa đơn:</b> ${requestScope.customer.getTotalAmount()}</h4>
+            <button class="btn btn-info" id="previous" onclick="history.go(-1);">Quay lại</button>
         </div>
     </body>
 </html>

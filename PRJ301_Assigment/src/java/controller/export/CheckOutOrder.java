@@ -70,21 +70,28 @@ public class CheckOutOrder extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession();
-        Orders order = (Orders) session.getAttribute("cart");
-        ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
-
-        //database
-        // add record into Orders table and add records into Order_Product (1 transaction)
-        OrdersDBContext orderDB = new OrdersDBContext();
-        orderDB.insertOrder(order,products);
-
-//        ProductDBContext productDB = new ProductDBContext();
-//        productDB.updateQuantity(products);
-
-        request.getSession().removeAttribute("cart");
-        request.getSession().removeAttribute("products");
-        request.getRequestDispatcher("../NewServlet").forward(request, response);
+//        HttpSession session = request.getSession();
+//        Orders order = (Orders) session.getAttribute("cart");
+//        ArrayList<Product> products = (ArrayList<Product>) session.getAttribute("products");
+//
+//        //database
+//        // add record into Orders table and add records into Order_Product (1 transaction)
+//        OrdersDBContext orderDB = new OrdersDBContext();
+//        int orderId = orderDB.insertOrder(order,products);
+//
+//        
+//        
+//        // check order successfully
+//        if(orderId == -1){
+//            request.getRequestDispatcher("../view/export/orderFail.jsp").forward(request, response);
+//        }else{
+//            request.getSession().removeAttribute("cart");
+//            request.getSession().removeAttribute("products");
+//            request.getSession().removeAttribute("customer");
+//            
+//            request.setAttribute("orderId", orderId);
+//            request.getRequestDispatcher("../view/export/orderSuccess.jsp").forward(request, response);
+//        }
     }
 
     /**

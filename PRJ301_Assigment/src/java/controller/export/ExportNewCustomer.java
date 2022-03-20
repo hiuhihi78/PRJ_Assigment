@@ -12,6 +12,7 @@ import dal.ProductDBContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -80,6 +81,7 @@ public class ExportNewCustomer extends BaseAuthentication {
                 request.getRequestDispatcher("../view/export/newCustomer.jsp").forward(request, response);
             }
         }
+        
 
         CustomerDBContext customerDB = new CustomerDBContext();
         Customer customer = new Customer();
@@ -91,7 +93,7 @@ public class ExportNewCustomer extends BaseAuthentication {
         person.setPhone(phone);
         person.setAddress(address);
         customer.setPerson(person);
-
+        
         personDB.insertPerson(person);
         customerDB.insertCustomer(customer.getPerson().getId());
 

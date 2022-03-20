@@ -52,6 +52,7 @@
                     <th>Số lượng</th>
                     <th>Giảm giá(%)</th>
                     <th>Giá bán</th>
+                    <th>Thành tiền</th>
                 </tr>
                 <c:forEach items="${sessionScope.cart.getOrder_Products()}" var="p">
                     <tr>
@@ -59,13 +60,14 @@
                         <td>${p.quantity}</td>
                         <td>${p.discount}</td>
                         <td>${p.sellPrice}</td>
+                        <td>${(p.quantity * p.sellPrice) * (1 - p.discount/100)}</td>
                     </tr>
                 </c:forEach>
             </table>
             <h4><b>Tổng tiền cần phải trả:</b> <%= order.getAmount()%></h4>
             <h4><b>Số tiền đã trả:</b> <%= order.getPaid()%></h4>
             <button class="btn btn-info" id="previous" onclick="window.history.go(-1);">Quay lại</button>
-            <form action="../cart/checkout" method="POST">
+            <form action="../export/makeInvoice" method="GET">
                 <input class="btn btn-danger" id="submit" type="submit" value="Chấp nhận"/>
             </form>
         </div>
