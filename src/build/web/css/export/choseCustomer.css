@@ -1,0 +1,16 @@
+
+
+.button{
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: gold;
+    border-radius: 20px;
+    width: 40%;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.button:hover{
+    color: black;
+    background-color: white;
+}

@@ -1,0 +1,23 @@
+.header{
+    background-color: #ff630b;
+    height: 100px;
+}
+
+#btn-home {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    font-weight: bold;
+    float: left;
+}
+
+#title{
+    float: none;
+    color: white;
+}
+
+body{
+    background-color: #efecec;
+    background-color: linear-gradient(315deg, #efecec 0%, #f9aba4 74%);
+}
+

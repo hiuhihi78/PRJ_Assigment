@@ -1,0 +1,12 @@
+table{
+    background-color: #000;
+}
+
+#previous{
+   float: left;
+}
+
+#submit{
+    float: none;
+    margin-left: 2%;;
+}
